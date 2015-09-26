@@ -22,6 +22,26 @@ value __ne__(value x, value y) {
   return make(x.boolval != y.boolval);
 }
 
+value __lt__(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return make(x.boolval < y.boolval);
+}
+
+value __le__(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return make(x.boolval <= y.boolval);
+}
+
+value __ge__(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return make(x.boolval >= y.boolval);
+}
+
+value __gt__(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return make(x.boolval > y.boolval);
+}
+
 value __bool__(value self) {
   assert(self.type == value::BOOL);
   return self;

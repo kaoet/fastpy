@@ -50,4 +50,38 @@ value __ne__(value x, value y) {
     return bool_::make(*x.setval != *y.setval);
 }
 
+value __lt__(value x, value y) {
+    assert(x.type == value::SET && y.type == value::SET);
+    
+    if (x.setval->size() >= y.setval->size())
+        return bool_::make(false);
+    
+    for (value v : *x.setval) {
+        if (y.setval->find(v) == y.setval->end())
+            return bool_::make(false);
+    }
+    return bool_::make(true);
+}
+
+value __le__(value x, value y) {
+    assert(x.type == value::SET && y.type == value::SET);
+    
+    if (x.setval->size() > y.setval->size())
+        return bool_::make(false);
+    
+    for (value v : *x.setval) {
+        if (y.setval->find(v) == y.setval->end())
+            return bool_::make(false);
+    }
+    return bool_::make(true);
+}
+
+value __ge__(value x, value y) {
+    return set::__le__(y, x);
+}
+
+value __gt__(value x, value y) {
+    return set::__lt__(y, x);
+}
+
 }

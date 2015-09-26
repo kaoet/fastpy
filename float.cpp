@@ -46,6 +46,26 @@ value __ne__(value x, value y) {
     return bool_::make(x.floatval != y.floatval);
 }
 
+value __lt__(value x, value y) {
+    assert(x.type == value::FLOAT && y.type == value::FLOAT);
+    return bool_::make(x.floatval < y.floatval);
+}
+
+value __le__(value x, value y) {
+    assert(x.type == value::FLOAT && y.type == value::FLOAT);
+    return bool_::make(x.floatval <= y.floatval);
+}
+
+value __ge__(value x, value y) {
+    assert(x.type == value::FLOAT && y.type == value::FLOAT);
+    return bool_::make(x.floatval >= y.floatval);
+}
+
+value __gt__(value x, value y) {
+    assert(x.type == value::FLOAT && y.type == value::FLOAT);
+    return bool_::make(x.floatval > y.floatval);
+}
+
 value __bool__(value self) {
     assert(self.type == value::FLOAT);
     return bool_::make(self.floatval != 0.0);

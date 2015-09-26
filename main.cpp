@@ -20,6 +20,13 @@ void test_none() {
 void test_bool() {
   assert(bool_::make(true) == int_::make(1));
   assert(bool_::make(false) == float_::make(0));
+  assert(bool_::make(false) < bool_::make(true));
+  assert(!(bool_::make(false) < bool_::make(false)));
+  assert(bool_::make(true) <= bool_::make(true));
+  assert(bool_::make(true) > int_::make(0));
+  assert(bool_::make(true) >= float_::make(0.5));
+  assert(__bool__(bool_::make(true)));
+  assert(!__bool__(bool_::make(false)));
 }
 
 void test_int() {
@@ -30,6 +37,9 @@ void test_int() {
   assert(int_::make(10) % int_::make(3) == int_::make(1));
   assert(int_::make(3) + float_::make(4.5) == float_::make(7.5));
   assert(int_::make(2) == float_::make(2.0));
+  assert(int_::make(2) < float_::make(2.1));
+  assert(__bool__(int_::make(1)));
+  assert(!__bool__(int_::make(0)));
 }
 
 void test_float() {
@@ -38,6 +48,7 @@ void test_float() {
   assert(float_::make(1.1) * float_::make(2.2) == float_::make(1.1 * 2.2));
   assert(float_::make(1.1) / float_::make(2.2) == float_::make(1.1 / 2.2));
   assert(float_::make(10.75) % float_::make(5.25) == float_::make(0.25));
+  assert(float_::make(3.8) >= float_::make(3.8));
 }
 
 void test_str() {
@@ -53,6 +64,8 @@ void test_str() {
          bool_::make(false));
   assert(__bool__(str::make("")) == bool_::make(false));
   assert(__bool__(str::make("a")) == bool_::make(true));
+  assert(str::make("abc") < str::make("abcd"));
+  assert(str::make("abd") >= str::make("abcd"));
 }
 
 value list1() {
@@ -119,6 +132,7 @@ void test_list() {
   assert(__contains__(list1(), str::make("5")) == bool_::make(false));
   assert(__bool__(list::make()) == bool_::make(false));
   assert(__bool__(list1()) == bool_::make(true));
+  assert(list1() <= list12());
 
   value l = list1();
   __setitem__(l, int_::make(1), str::make("w"));
@@ -149,6 +163,9 @@ void test_set() {
     assert(__len__(set1()) == int_::make(3));
     assert(__contains__(set1(), int_::make(1)));
     assert(!__contains__(set1(), int_::make(4)));
+    assert(set1() > set1_removed());
+    assert(!(set1() > set1()));
+    assert(set1() >= set1());
     
     value s = set1();
     set::add(s, str::make("3"));

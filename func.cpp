@@ -419,3 +419,195 @@ value __ne__(value x, value y) {
   }
   return bool_::make(true);
 }
+
+value __lt__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__lt__(x, y);
+    case value::INT:
+      return int_::__lt__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__lt__(bool_::__float__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__lt__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__lt__(x, y);
+    case value::FLOAT:
+      return float_::__lt__(int_::__float__(x), y);
+    }
+    break;
+  case value::FLOAT:
+    switch (y.type) {
+    case value::BOOL:
+      return float_::__lt__(x, bool_::__float__(y));
+    case value::INT:
+      return float_::__lt__(x, int_::__float__(y));
+    case value::FLOAT:
+      return float_::__lt__(x, y);
+    }
+    break;
+  case value::STR:
+    if (y.type == value::STR)
+      return str::__lt__(x, y);
+    break;
+  case value::LIST:
+    if (y.type == value::LIST)
+      return list::__lt__(x, y);
+    break;
+  case value::SET:
+    if (y.type == value::SET)
+      return set::__lt__(x, y);
+    break;
+  }
+  throw std::runtime_error("invalid type for <");
+}
+
+value __le__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__le__(x, y);
+    case value::INT:
+      return int_::__le__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__le__(bool_::__float__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__le__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__le__(x, y);
+    case value::FLOAT:
+      return float_::__le__(int_::__float__(x), y);
+    }
+    break;
+  case value::FLOAT:
+    switch (y.type) {
+    case value::BOOL:
+      return float_::__le__(x, bool_::__float__(y));
+    case value::INT:
+      return float_::__le__(x, int_::__float__(y));
+    case value::FLOAT:
+      return float_::__le__(x, y);
+    }
+    break;
+  case value::STR:
+    if (y.type == value::STR)
+      return str::__le__(x, y);
+    break;
+  case value::LIST:
+    if (y.type == value::LIST)
+      return list::__le__(x, y);
+    break;
+  case value::SET:
+    if (y.type == value::SET)
+      return set::__le__(x, y);
+    break;
+  }
+  throw std::runtime_error("invalid type for <=");
+}
+
+value __ge__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__ge__(x, y);
+    case value::INT:
+      return int_::__ge__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__ge__(bool_::__float__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__ge__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__ge__(x, y);
+    case value::FLOAT:
+      return float_::__ge__(int_::__float__(x), y);
+    }
+    break;
+  case value::FLOAT:
+    switch (y.type) {
+    case value::BOOL:
+      return float_::__ge__(x, bool_::__float__(y));
+    case value::INT:
+      return float_::__ge__(x, int_::__float__(y));
+    case value::FLOAT:
+      return float_::__ge__(x, y);
+    }
+    break;
+  case value::STR:
+    if (y.type == value::STR)
+      return str::__ge__(x, y);
+    break;
+  case value::LIST:
+    if (y.type == value::LIST)
+      return list::__ge__(x, y);
+    break;
+  case value::SET:
+    if (y.type == value::SET)
+      return set::__ge__(x, y);
+    break;
+  }
+  throw std::runtime_error("invalid type for >=");
+}
+
+value __gt__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__gt__(x, y);
+    case value::INT:
+      return int_::__gt__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__gt__(bool_::__float__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__gt__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__gt__(x, y);
+    case value::FLOAT:
+      return float_::__gt__(int_::__float__(x), y);
+    }
+    break;
+  case value::FLOAT:
+    switch (y.type) {
+    case value::BOOL:
+      return float_::__gt__(x, bool_::__float__(y));
+    case value::INT:
+      return float_::__gt__(x, int_::__float__(y));
+    case value::FLOAT:
+      return float_::__gt__(x, y);
+    }
+    break;
+  case value::STR:
+    if (y.type == value::STR)
+      return str::__gt__(x, y);
+    break;
+  case value::LIST:
+    if (y.type == value::LIST)
+      return list::__gt__(x, y);
+    break;
+  case value::SET:
+    if (y.type == value::SET)
+      return set::__gt__(x, y);
+    break;
+  }
+  throw std::runtime_error("invalid type for >");
+}

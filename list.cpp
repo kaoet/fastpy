@@ -81,6 +81,26 @@ value __ne__(value x, value y) {
     return bool_::make(*x.listval != *y.listval);
 }
 
+value __lt__(value x, value y) {
+    assert(x.type == value::LIST && y.type == value::LIST);
+    return bool_::make(*x.listval < *y.listval);
+}
+
+value __le__(value x, value y) {
+    assert(x.type == value::LIST && y.type == value::LIST);
+    return bool_::make(*x.listval <= *y.listval);
+}
+
+value __ge__(value x, value y) {
+    assert(x.type == value::LIST && y.type == value::LIST);
+    return bool_::make(*x.listval >= *y.listval);
+}
+
+value __gt__(value x, value y) {
+    assert(x.type == value::LIST && y.type == value::LIST);
+    return bool_::make(*x.listval > *y.listval);
+}
+
 value __contains__(value self, value v) {
     assert(self.type == value::LIST);
     

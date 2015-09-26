@@ -62,7 +62,27 @@ value __eq__(value x, value y) {
 
 value __ne__(value x, value y) {
     assert(x.type == value::STR && y.type == value::STR);
-    return bool_::make(*x.strval == *y.strval);
+    return bool_::make(*x.strval != *y.strval);
+}
+
+value __lt__(value x, value y) {
+    assert(x.type == value::STR && y.type == value::STR);
+    return bool_::make(*x.strval < *y.strval);
+}
+
+value __le__(value x, value y) {
+    assert(x.type == value::STR && y.type == value::STR);
+    return bool_::make(*x.strval <= *y.strval);
+}
+
+value __ge__(value x, value y) {
+    assert(x.type == value::STR && y.type == value::STR);
+    return bool_::make(*x.strval >= *y.strval);
+}
+
+value __gt__(value x, value y) {
+    assert(x.type == value::STR && y.type == value::STR);
+    return bool_::make(*x.strval > *y.strval);
 }
 
 value __contains__(value self, value sub) {
