@@ -67,6 +67,10 @@ struct value {
     value operator %(value other) const {
         return __mod__(*this, other);
     }
+    
+    operator bool() const {
+        return __bool__(*this).boolval;
+    }
 };
 
 namespace std {

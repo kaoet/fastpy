@@ -29,12 +29,12 @@ value __bool__(value self) {
 
 value __int__(value self) {
   assert(self.type == value::BOOL);
-  return int_::make(1);
+  return int_::make(self.boolval? 1: 0);
 }
 
 value __float__(value self) {
   assert(self.type == value::BOOL);
-  return float_::make(1.0);
+  return float_::make(self.boolval? 1.0: 0.0);
 }
 
 }

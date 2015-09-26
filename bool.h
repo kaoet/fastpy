@@ -4,7 +4,8 @@
 
 namespace bool_ {
     
-value make(bool v);
+value make(bool v=false);
+
 value __eq__(value x, value y);
 value __ne__(value x, value y);
 value __bool__(value self);

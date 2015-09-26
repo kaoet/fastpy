@@ -1,6 +1,7 @@
 #include <cassert>
 #include "dict.h"
 #include "bool.h"
+#include "int.h"
 
 namespace dict {
     
@@ -22,7 +23,7 @@ value __getitem__(value self, value k) {
 
 void __setitem__(value self, value k, value v) {
     assert(self.type == value::DICT);
-    self.dictval->insert(std::make_pair(k, v));
+    (*self.dictval)[k] = v;
 }
 
 value __contains__(value self, value k) {
@@ -38,6 +39,11 @@ void __delitem__(value self, value k) {
 value __bool__(value self) {
     assert(self.type == value::DICT);
     return bool_::make(!self.dictval->empty());
+}
+
+value __len__(value self) {
+    assert(self.type == value::DICT);
+    return int_::make(self.dictval->size());
 }
 
 value __eq__(value x, value y) {

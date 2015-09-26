@@ -4,7 +4,7 @@
 
 namespace list {
 
-value make(size_t size=0);
+value make();
 
 void append(value self, value v);
 value pop(value self);

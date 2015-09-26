@@ -195,8 +195,9 @@ value __len__(value self) {
   case value::STR:
     return str::__len__(self);
   case value::SET:
+    return set::__len__(self);
   case value::DICT:
-    throw std::runtime_error("not implemented");
+    return dict::__len__(self);
   default:
     throw std::runtime_error("invalid argument type for len");
   }

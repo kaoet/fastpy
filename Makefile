@@ -13,4 +13,4 @@ release: $(OBJS)
 
 .PHONY: clean
 clean:
-	- rm debug release *.o
+	- rm debug release *.o *.gcno *.gcda *.gcov

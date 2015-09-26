@@ -7,10 +7,10 @@
 
 namespace list {
 
-value make(size_t size) {
+value make() {
     value ret;
     ret.type = value::LIST;
-    ret.listval = new list_t(size);
+    ret.listval = new list_t();
     return ret;
 }
 

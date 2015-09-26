@@ -1,6 +1,7 @@
 #include <cassert>
 #include "set.h"
 #include "bool.h"
+#include "int.h"
 
 namespace set {
     
@@ -32,6 +33,11 @@ value __contains__(value self, value v) {
 value __bool__(value self) {
     assert(self.type == value::SET);
     return bool_::make(!self.setval->empty());
+}
+
+value __len__(value self) {
+    assert(self.type == value::SET);
+    return int_::make(self.setval->size());
 }
 
 value __eq__(value x, value y) {
