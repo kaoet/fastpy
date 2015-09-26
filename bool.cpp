@@ -57,4 +57,19 @@ value __float__(value self) {
   return float_::make(self.boolval? 1.0: 0.0);
 }
 
+value __and__(value x, value y) {
+    assert(x.type == value::BOOL && y.type == value::BOOL);
+    return make(x.boolval & y.boolval);
+}
+
+value __or__(value x, value y) {
+    assert(x.type == value::BOOL && y.type == value::BOOL);
+    return make(x.boolval | y.boolval);
+}
+
+value __xor__(value x, value y) {
+    assert(x.type == value::BOOL && y.type == value::BOOL);
+    return make(x.boolval ^ y.boolval);
+}
+
 }

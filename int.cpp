@@ -77,4 +77,34 @@ value __bool__(value self) {
     return bool_::make(self.intval != 0);
 }
 
+value __and__(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return make(x.intval & y.intval);
+}
+
+value __or__(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return make(x.intval | y.intval);
+}
+
+value __xor__(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return make(x.intval ^ y.intval);
+}
+
+value __invert__(value self) {
+    assert(self.type == value::INT);
+    return make(~self.intval);
+}
+
+value __lshift__(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return make(x.intval << y.intval);
+}
+
+value __rshift__(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return make(x.intval >> y.intval);
+}
+
 }

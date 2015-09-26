@@ -15,5 +15,8 @@ value __ge__(value x, value y);
 value __bool__(value self);
 value __int__(value self);
 value __float__(value self);
+value __and__(value x, value y);
+value __or__(value x, value y);
+value __xor__(value x, value y);
 
 }

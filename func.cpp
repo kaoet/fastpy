@@ -611,3 +611,119 @@ value __gt__(value x, value y) {
   }
   throw std::runtime_error("invalid type for >");
 }
+
+value __and__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__and__(x, y);
+    case value::INT:
+      return int_::__and__(bool_::__int__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__and__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__and__(x, y);
+    }
+  }
+  throw std::runtime_error("invalid type for &");
+}
+
+value __or__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__or__(x, y);
+    case value::INT:
+      return int_::__or__(bool_::__int__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__or__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__or__(x, y);
+    }
+  }
+  throw std::runtime_error("invalid type for |");
+}
+
+value __xor__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return bool_::__xor__(x, y);
+    case value::INT:
+      return int_::__xor__(bool_::__int__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__xor__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__xor__(x, y);
+    }
+  }
+  throw std::runtime_error("invalid type for ^");
+}
+
+value __invert__(value self) {
+  switch (self.type) {
+  case value::BOOL:
+    return int_::__invert__(bool_::__int__(self));
+  case value::INT:
+    return int_::__invert__(self);
+  default:
+    throw std::runtime_error("invalid type for ~");
+  }
+}
+
+value __lshift__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__lshift__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__lshift__(bool_::__int__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__lshift__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__lshift__(x, y);
+    }
+  }
+  throw std::runtime_error("invalid type for <<");
+}
+
+value __rshift__(value x, value y) {
+  switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__rshift__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__rshift__(bool_::__int__(x), y);
+    }
+    break;
+  case value::INT:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__rshift__(x, bool_::__int__(y));
+    case value::INT:
+      return int_::__rshift__(x, y);
+    }
+  }
+  throw std::runtime_error("invalid type for >>");
+}

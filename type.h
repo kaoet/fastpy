@@ -68,6 +68,30 @@ struct value {
         return __mod__(*this, other);
     }
     
+    value operator &(value other) const {
+        return __and__(*this, other);
+    }
+    
+    value operator |(value other) const {
+        return __or__(*this, other);
+    }
+    
+    value operator ^(value other) const {
+        return __xor__(*this, other);
+    }
+    
+    value operator ~() const {
+        return __invert__(*this);
+    }
+    
+    value operator <<(value other) const {
+        return __lshift__(*this, other);
+    }
+
+    value operator >>(value other) const {
+        return __rshift__(*this, other);
+    }
+        
     operator bool() const {
         return __bool__(*this).boolval;
     }
@@ -79,12 +103,14 @@ namespace std {
         size_t operator ()(value v) const {
             switch (v.type) {
             case value::NONE:
-                return 0;
+                return -9223372036577629359;
             case value::BOOL:
                 return std::hash<bool>()(v.boolval);
             case value::INT:
                 return std::hash<long>()(v.intval);
             case value::FLOAT:
+                if (v.floatval == (long)v.floatval)
+                    return std::hash<long>()((long)v.floatval);
                 return std::hash<double>()(v.floatval);
             case value::STR:
                 return std::hash<str_t>()(*v.strval);

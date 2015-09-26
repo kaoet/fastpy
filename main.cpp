@@ -27,6 +27,12 @@ void test_bool() {
   assert(bool_::make(true) >= float_::make(0.5));
   assert(__bool__(bool_::make(true)));
   assert(!__bool__(bool_::make(false)));
+  assert(bool_::make(true) & bool_::make(true));
+  assert(!(bool_::make(false) | bool_::make(false)));
+  assert(!(bool_::make(true) ^ bool_::make(true)));
+  assert(~bool_::make(true) == int_::make(-2));
+  assert((bool_::make(true) << bool_::make(true)) == int_::make(2));
+  assert((int_::make(3) >> bool_::make(true)) == int_::make(1));
 }
 
 void test_int() {
@@ -40,6 +46,8 @@ void test_int() {
   assert(int_::make(2) < float_::make(2.1));
   assert(__bool__(int_::make(1)));
   assert(!__bool__(int_::make(0)));
+  assert((int_::make(123) & int_::make(456)) == int_::make(123 & 456));
+  assert((int_::make(-3) >> int_::make(1)) == int_::make(-2));
 }
 
 void test_float() {
@@ -169,6 +177,10 @@ void test_set() {
     
     value s = set1();
     set::add(s, str::make("3"));
+    assert(s == set1());
+    
+    s = set1();
+    set::add(s, float_::make(1.0));
     assert(s == set1());
     
     s = set1();
