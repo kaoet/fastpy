@@ -26,6 +26,8 @@ value __xor__(value x, value y);
 value __invert__(value self);
 value __lshift__(value x, value y);
 value __rshift__(value x, value y);
+value __iter__(value self);
+value __next__(value self);
 
 void append(value self, value v);
 void add(value self, value v);

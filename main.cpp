@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <stdexcept>
+#include "assert.h"
 #include "type.h"
 #include "list.h"
 #include "int.h"
@@ -10,7 +11,8 @@
 #include "set.h"
 #include "func.h"
 #include "none.h"
-#include "assert.h"
+#include "range.h"
+#include "range_iterator.h"
 
 void test_none() {
   assert(none::make() == none::make());
@@ -236,6 +238,20 @@ void test_dict() {
     assert(d == dict1_del());
 }
 
+void test_range() {
+    value r = range::make(1, 5, 2);
+    value iter = __iter__(r);
+    assert(__next__(iter) == int_::make(1));
+    assert(__next__(iter) == int_::make(3));
+    assert(__next__(iter) == none::make());
+    
+    r = range::make(5, 1, -2);
+    iter = __iter__(r);
+    assert(__next__(iter) == int_::make(5));
+    assert(__next__(iter) == int_::make(3));
+    assert(__next__(iter) == none::make());
+}
+
 int main() {
   test_none();
   test_bool();
@@ -245,4 +261,5 @@ int main() {
   test_list();
   test_set();
   test_dict();
+  test_range();
 }

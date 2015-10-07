@@ -11,9 +11,11 @@ typedef std::vector<value> list_t;
 typedef std::string str_t;
 typedef std::unordered_set<value> set_t;
 typedef std::unordered_map<value, value> dict_t;
+typedef struct { long start, stop, step; } range_t;
+typedef range_t range_iterator_t;
 
 struct value {
-    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT } type;
+    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR } type;
     union {
         bool boolval;
         long intval;
@@ -22,6 +24,8 @@ struct value {
         list_t *listval;
         set_t *setval;
         dict_t *dictval;
+        range_t *rangeval;
+        range_iterator_t *range_iteratorval;
     };
     
     bool operator ==(value other) const {

@@ -7,6 +7,8 @@
 #include "bool.h"
 #include "set.h"
 #include "none.h"
+#include "range.h"
+#include "range_iterator.h"
 
 void print(value v) {
   switch (v.type) {
@@ -315,6 +317,7 @@ value __eq__(value x, value y) {
   case value::NONE:
     if (y.type == value::NONE)
       return none::__eq__(x, y);
+    break;
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
@@ -370,6 +373,7 @@ value __ne__(value x, value y) {
   case value::NONE:
     if (y.type == value::NONE)
       return none::__ne__(x, y);
+    break;
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
@@ -726,6 +730,20 @@ value __rshift__(value x, value y) {
     }
   }
   throw std::runtime_error("invalid type for >>");
+}
+
+value __iter__(value self) {
+    if (self.type == value::RANGE) {
+        return range::__iter__(self);
+    }
+    throw std::runtime_error("invalid type for __iter__");
+}
+
+value __next__(value self) {
+    if (self.type == value::RANGE_ITERATOR) {
+        return range_iterator::__next__(self);
+    }
+    throw std::runtime_error("invalid type for __next__");
 }
 
 void append(value self, value v) {
