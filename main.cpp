@@ -1,6 +1,5 @@
 #include <cstdio>
 #include <stdexcept>
-#include <cassert>
 #include "type.h"
 #include "list.h"
 #include "int.h"
@@ -11,6 +10,7 @@
 #include "set.h"
 #include "func.h"
 #include "none.h"
+#include "assert.h"
 
 void test_none() {
   assert(none::make() == none::make());
@@ -78,55 +78,62 @@ void test_str() {
 
 value list1() {
   value l = list::make();
-  list::append(l, int_::make(2));
-  list::append(l, float_::make(3.0));
-  list::append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
+  append(l, str::make("4"));
   return l;
 }
 
 value list2() {
   value l = list::make();
-  list::append(l, int_::make(5));
-  list::append(l, float_::make(6.0));
+  append(l, int_::make(5));
+  append(l, float_::make(6.0));
   return l;
 }
 
 value list11() {
   value l = list::make();
-  list::append(l, int_::make(2));
-  list::append(l, str::make("w"));
-  list::append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, str::make("w"));
+  append(l, str::make("4"));
   return l;
 }
 
 value list12() {
   value l = list::make();
-  list::append(l, int_::make(2));
-  list::append(l, float_::make(3.0));
-  list::append(l, str::make("4"));
-  list::append(l, int_::make(5));
-  list::append(l, float_::make(6.0));
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
+  append(l, str::make("4"));
+  append(l, int_::make(5));
+  append(l, float_::make(6.0));
   return l;
 }
 
 value list13() {
   value l = list::make();
-  list::append(l, int_::make(2));
-  list::append(l, float_::make(3.0));
-  list::append(l, str::make("4"));
-  list::append(l, int_::make(2));
-  list::append(l, float_::make(3.0));
-  list::append(l, str::make("4"));
-  list::append(l, int_::make(2));
-  list::append(l, float_::make(3.0));
-  list::append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
+  append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
+  append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
+  append(l, str::make("4"));
   return l;
 }
 
 value list1_del() {
   value l = list::make();
-  list::append(l, int_::make(2));
-  list::append(l, str::make("4"));
+  append(l, int_::make(2));
+  append(l, str::make("4"));
+  return l;
+}
+
+value list1_pop() {
+  value l = list::make();
+  append(l, int_::make(2));
+  append(l, float_::make(3.0));
   return l;
 }
 
@@ -149,20 +156,24 @@ void test_list() {
   l = list1();
   __delitem__(l, int_::make(1));
   assert(l == list1_del());
+  
+  l = list1();
+  assert(str::make("4") == pop(l));
+  assert(l == list1_pop());
 }
 
 value set1() {
     value s = set::make();
-    set::add(s, int_::make(1));
-    set::add(s, float_::make(2.0));
-    set::add(s, str::make("3"));
+    add(s, int_::make(1));
+    add(s, float_::make(2.0));
+    add(s, str::make("3"));
     return s;
 }
 
 value set1_removed() {
     value s = set::make();
-    set::add(s, int_::make(1));
-    set::add(s, float_::make(2.0));
+    add(s, int_::make(1));
+    add(s, float_::make(2.0));
     return s;
 }
 
@@ -176,15 +187,15 @@ void test_set() {
     assert(set1() >= set1());
     
     value s = set1();
-    set::add(s, str::make("3"));
+    add(s, str::make("3"));
     assert(s == set1());
     
     s = set1();
-    set::add(s, float_::make(1.0));
+    add(s, float_::make(1.0));
     assert(s == set1());
     
     s = set1();
-    set::remove(s, str::make("3"));
+    remove(s, str::make("3"));
     assert(s == set1_removed());
 }
 
@@ -226,46 +237,6 @@ void test_dict() {
 }
 
 int main() {
-  /*
-  value x = list::make();
-  value i = int_::make(0);
-  while (i != int_::make(2000)) {
-      value xx = list::make();
-      value j = int_::make(0);
-      while (j != int_::make(2000)) {
-          list::append(xx, int_::make(0));
-          j = __add__(j, int_::make(1));
-      }
-      list::append(x, xx);
-      i = __add__(i, int_::make(1));
-  }
-
-  value checksum = int_::make(0);
-
-  i = int_::make(0);
-  while (i != int_::make(2000)) {
-      value j = int_::make(0);
-      while (j != int_::make(2000)) {
-          if (i != int_::make(0) && j != int_::make(0)) {
-              value v1 = __getitem__(__getitem__(x, __sub__(i, int_::make(1))),
-  j);
-              value v2 = __getitem__(__getitem__(x, i), __sub__(j,
-  int_::make(1)));
-              value sum = __add__(v1, v2);
-              __setitem__(__getitem__(x, i), j, __mod__(sum,
-  int_::make(123456)));
-          } else {
-              __setitem__(__getitem__(x, i), j, int_::make(1));
-          }
-          checksum = __mod__(__add__(checksum, __getitem__(__getitem__(x, i),
-  j)), int_::make(123456));
-          j = __add__(j, int_::make(1));
-      }
-      i = __add__(i, int_::make(1));
-  }
-
-  print(checksum);
-  */
   test_none();
   test_bool();
   test_int();

@@ -26,3 +26,8 @@ value __xor__(value x, value y);
 value __invert__(value self);
 value __lshift__(value x, value y);
 value __rshift__(value x, value y);
+
+void append(value self, value v);
+void add(value self, value v);
+void remove(value self, value v);
+value pop(value self);

@@ -727,3 +727,34 @@ value __rshift__(value x, value y) {
   }
   throw std::runtime_error("invalid type for >>");
 }
+
+void append(value self, value v) {
+    if (self.type == value::LIST) {
+        list::append(self, v);
+        return;
+    }
+    throw std::runtime_error("invalid type for append");
+}
+
+void add(value self, value v) {
+    if (self.type == value::SET) {
+        set::add(self, v);
+        return;
+    }
+    throw std::runtime_error("invalid type for add");
+}
+
+void remove(value self, value v) {
+    if (self.type == value::SET) {
+        set::remove(self, v);
+        return;
+    }
+    throw std::runtime_error("invalid type for remove");
+}
+
+value pop(value self) {
+    if (self.type == value::LIST) {
+        return list::pop(self);
+    }
+    throw std::runtime_error("invalid type for pop");
+}
