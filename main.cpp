@@ -158,98 +158,99 @@ void test_list() {
   l = list1();
   __delitem__(l, int_::make(1));
   assert(l == list1_del());
-  
+
   l = list1();
   assert(str::make("4") == pop(l));
   assert(l == list1_pop());
 }
 
 value set1() {
-    value s = set::make();
-    add(s, int_::make(1));
-    add(s, float_::make(2.0));
-    add(s, str::make("3"));
-    return s;
+  value s = set::make();
+  add(s, int_::make(1));
+  add(s, float_::make(2.0));
+  add(s, str::make("3"));
+  return s;
 }
 
 value set1_removed() {
-    value s = set::make();
-    add(s, int_::make(1));
-    add(s, float_::make(2.0));
-    return s;
+  value s = set::make();
+  add(s, int_::make(1));
+  add(s, float_::make(2.0));
+  return s;
 }
 
 void test_set() {
-    assert(set1() == set1());
-    assert(__len__(set1()) == int_::make(3));
-    assert(__contains__(set1(), int_::make(1)));
-    assert(!__contains__(set1(), int_::make(4)));
-    assert(set1() > set1_removed());
-    assert(!(set1() > set1()));
-    assert(set1() >= set1());
-    
-    value s = set1();
-    add(s, str::make("3"));
-    assert(s == set1());
-    
-    s = set1();
-    add(s, float_::make(1.0));
-    assert(s == set1());
-    
-    s = set1();
-    remove(s, str::make("3"));
-    assert(s == set1_removed());
+  assert(set1() == set1());
+  assert(__len__(set1()) == int_::make(3));
+  assert(__contains__(set1(), int_::make(1)));
+  assert(!__contains__(set1(), int_::make(4)));
+  assert(set1() > set1_removed());
+  assert(!(set1() > set1()));
+  assert(set1() >= set1());
+
+  value s = set1();
+  add(s, str::make("3"));
+  assert(s == set1());
+
+  s = set1();
+  add(s, float_::make(1.0));
+  assert(s == set1());
+
+  s = set1();
+  remove(s, str::make("3"));
+  assert(s == set1_removed());
 }
 
 value dict1() {
-    value d = dict::make();
-    __setitem__(d, int_::make(1), int_::make(2));
-    __setitem__(d, str::make("a"), str::make("b"));
-    return d;
+  value d = dict::make();
+  __setitem__(d, int_::make(1), int_::make(2));
+  __setitem__(d, str::make("a"), str::make("b"));
+  return d;
 }
 
 value dict1_added() {
-    value d = dict::make();
-    __setitem__(d, int_::make(1), str::make("foo"));
-    __setitem__(d, str::make("a"), str::make("b"));
-    return d;
+  value d = dict::make();
+  __setitem__(d, int_::make(1), str::make("foo"));
+  __setitem__(d, str::make("a"), str::make("b"));
+  return d;
 }
 
 value dict1_del() {
-    value d = dict::make();
-    __setitem__(d, int_::make(1), int_::make(2));
-    return d;
+  value d = dict::make();
+  __setitem__(d, int_::make(1), int_::make(2));
+  return d;
 }
 
 void test_dict() {
-    assert(dict1() == dict1());
-    assert(__len__(dict1()) == int_::make(2));
-    assert(__contains__(dict1(), int_::make(1)));
-    assert(!__contains__(dict1(), int_::make(2)));
-    assert(__getitem__(dict1(), int_::make(1)) == int_::make(2));
-    
-    value d = dict1();
-    __setitem__(d, int_::make(1), str::make("foo"));
-    assert(d == dict1_added());
-    assert(d != dict1());
-    
-    d = dict1();
-    __delitem__(d, str::make("a"));
-    assert(d == dict1_del());
+  assert(dict1() == dict1());
+  assert(__len__(dict1()) == int_::make(2));
+  assert(__contains__(dict1(), int_::make(1)));
+  assert(!__contains__(dict1(), int_::make(2)));
+  assert(__getitem__(dict1(), int_::make(1)) == int_::make(2));
+
+  value d = dict1();
+  __setitem__(d, int_::make(1), str::make("foo"));
+  assert(d == dict1_added());
+  assert(d != dict1());
+
+  d = dict1();
+  __delitem__(d, str::make("a"));
+  assert(d == dict1_del());
 }
 
 void test_range() {
-    value r = range::make(1, 5, 2);
-    value iter = __iter__(r);
-    assert(__next__(iter) == int_::make(1));
-    assert(__next__(iter) == int_::make(3));
-    assert(__next__(iter) == none::make());
-    
-    r = range::make(5, 1, -2);
-    iter = __iter__(r);
-    assert(__next__(iter) == int_::make(5));
-    assert(__next__(iter) == int_::make(3));
-    assert(__next__(iter) == none::make());
+  value r = range::make(3);
+  value iter = __iter__(r);
+  assert(__next__(iter) == int_::make(0));
+  assert(__next__(iter) == int_::make(1));
+  assert(__next__(iter) == int_::make(2));
+  assert(__next__(iter) == none::make());
+
+  r = range::make(5, 1, -2);
+  iter = __iter__(r);
+  assert(__next__(iter) == int_::make(5));
+  assert(__next__(iter) == int_::make(3));
+  assert(__next__(iter) == none::make());
 }
 
 int main() {

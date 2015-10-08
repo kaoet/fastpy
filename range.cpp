@@ -4,6 +4,10 @@
 
 namespace range {
 
+value make(long stop) {
+    return make(0, stop, 1);
+}
+
 value make(long start, long stop, long step) {
   value ret;
   ret.type = value::RANGE;
