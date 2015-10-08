@@ -239,14 +239,14 @@ void test_dict() {
 }
 
 void test_range() {
-  value r = range::make(3);
+  value r = range::__init__(int_::make(3));
   value iter = __iter__(r);
   assert(__next__(iter) == int_::make(0));
   assert(__next__(iter) == int_::make(1));
   assert(__next__(iter) == int_::make(2));
   assert(__next__(iter) == none::make());
 
-  r = range::make(5, 1, -2);
+  r = range::__init__(int_::make(5), int_::make(1), int_::make(-2));
   iter = __iter__(r);
   assert(__next__(iter) == int_::make(5));
   assert(__next__(iter) == int_::make(3));

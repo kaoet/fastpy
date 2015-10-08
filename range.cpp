@@ -4,14 +4,16 @@
 
 namespace range {
 
-value make(long stop) {
-    return make(0, stop, 1);
+value __init__(value stop) {
+    return __init__(int_::make(0), stop, int_::make(1));
 }
 
-value make(long start, long stop, long step) {
+value __init__(value start, value stop, value step) {
+  assert(start.type == value::INT && stop.type == value::INT && step.type == value::INT);
+  
   value ret;
   ret.type = value::RANGE;
-  ret.rangeval = new range_t{start, stop, step};
+  ret.rangeval = new range_t{start.intval, stop.intval, step.intval};
   return ret;
 }
 
