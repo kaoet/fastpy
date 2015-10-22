@@ -1,5 +1,5 @@
 CXXFLAGS = -std=c++11 -Wall -Wno-switch -Wno-logical-op-parentheses
-OBJS = main.o assert.o list.o int.o float.o str.o func.o set.o none.o bool.o dict.o range.o range_iterator.o
+OBJS = main.o assert.o list.o int.o float.o str.o func.o set.o none.o bool.o dict.o range.o range_iterator.o slice.o
 
 run: debug
 	./debug

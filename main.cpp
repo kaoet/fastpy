@@ -13,6 +13,7 @@
 #include "none.h"
 #include "range.h"
 #include "range_iterator.h"
+#include "slice.h"
 
 void test_none() {
   assert(none::make() == none::make());
@@ -76,6 +77,9 @@ void test_str() {
   assert(__bool__(str::make("a")) == bool_::make(true));
   assert(str::make("abc") < str::make("abcd"));
   assert(str::make("abd") >= str::make("abcd"));
+  assert(__getitem__(str::make("0123456"),
+                     slice::__init__(int_::make(1), int_::make(50),
+                                     int_::make(2))) == str::make("135"));
 }
 
 value list1() {
@@ -139,6 +143,51 @@ value list1_pop() {
   return l;
 }
 
+value list1_slice() {
+  value l = list::make();
+  append(l, str::make("4"));
+  append(l, int_::make(2));
+  return l;
+}
+
+value list3() {
+  value l = list::make();
+  append(l, int_::make(0));
+  append(l, int_::make(1));
+  append(l, int_::make(2));
+  append(l, int_::make(3));
+  append(l, int_::make(4));
+  return l;
+}
+
+value list4() {
+  value l = list::make();
+  append(l, int_::make(50));
+  append(l, int_::make(51));
+  return l;
+}
+
+value list3_setslice1() {
+  value l = list::make();
+  append(l, int_::make(0));
+  append(l, int_::make(51));
+  append(l, int_::make(2));
+  append(l, int_::make(50));
+  append(l, int_::make(4));
+  return l;
+}
+
+value list3_setslice2() {
+  value l = list::make();
+  append(l, int_::make(0));
+  append(l, int_::make(1));
+  append(l, int_::make(50));
+  append(l, int_::make(51));
+  append(l, int_::make(3));
+  append(l, int_::make(4));
+  return l;
+}
+
 void test_list() {
   assert(list1() == list1());
   assert(__len__(list1()) == int_::make(3));
@@ -150,6 +199,9 @@ void test_list() {
   assert(__bool__(list::make()) == bool_::make(false));
   assert(__bool__(list1()) == bool_::make(true));
   assert(list1() <= list12());
+  assert(__getitem__(list1(), slice::__init__(int_::make(10), int_::make(-10),
+                                              int_::make(-2))) ==
+         list1_slice());
 
   value l = list1();
   __setitem__(l, int_::make(1), str::make("w"));
@@ -162,6 +214,18 @@ void test_list() {
   l = list1();
   assert(str::make("4") == pop(l));
   assert(l == list1_pop());
+
+  l = list3();
+  __setitem__(l,
+              slice::__init__(int_::make(3), int_::make(-50), int_::make(-2)),
+              list4());
+  assert(l == list3_setslice1());
+
+  l = list3();
+  __setitem__(l, slice::__init__(int_::make(2), int_::make(3), int_::make(1)),
+              list4());
+              print(l);
+  assert(l == list3_setslice2());
 }
 
 value set1() {

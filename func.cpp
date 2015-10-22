@@ -209,12 +209,18 @@ value __len__(value self) {
 value __getitem__(value self, value k) {
   switch (self.type) {
   case value::STR:
-    if (k.type == value::INT)
+    switch (k.type) {
+    case value::INT:
+    case value::SLICE:
       return str::__getitem__(self, k);
+    }
     break;
   case value::LIST:
-    if (k.type == value::INT)
+    switch (k.type) {
+    case value::INT:
+    case value::SLICE:
       return list::__getitem__(self, k);
+    }
     break;
   case value::DICT:
     switch (k.type) {
@@ -255,9 +261,12 @@ value __contains__(value self, value v) {
 value __setitem__(value self, value k, value v) {
   switch (self.type) {
   case value::LIST:
-    if (k.type == value::INT) {
+    switch (k.type) {
+    case value::INT:
+    case value::SLICE:
       return list::__setitem__(self, k, v);
     }
+    break;
   case value::DICT:
     switch (k.type) {
     case value::NONE:
@@ -731,43 +740,43 @@ value __rshift__(value x, value y) {
 }
 
 value __iter__(value self) {
-    if (self.type == value::RANGE) {
-        return range::__iter__(self);
-    }
-    throw std::runtime_error("invalid type for __iter__");
+  if (self.type == value::RANGE) {
+    return range::__iter__(self);
+  }
+  throw std::runtime_error("invalid type for __iter__");
 }
 
 value __next__(value self) {
-    if (self.type == value::RANGE_ITERATOR) {
-        return range_iterator::__next__(self);
-    }
-    throw std::runtime_error("invalid type for __next__");
+  if (self.type == value::RANGE_ITERATOR) {
+    return range_iterator::__next__(self);
+  }
+  throw std::runtime_error("invalid type for __next__");
 }
 
 value append(value self, value v) {
-    if (self.type == value::LIST) {
-        return list::append(self, v);
-    }
-    throw std::runtime_error("invalid type for append");
+  if (self.type == value::LIST) {
+    return list::append(self, v);
+  }
+  throw std::runtime_error("invalid type for append");
 }
 
 value add(value self, value v) {
-    if (self.type == value::SET) {
-        return set::add(self, v);
-    }
-    throw std::runtime_error("invalid type for add");
+  if (self.type == value::SET) {
+    return set::add(self, v);
+  }
+  throw std::runtime_error("invalid type for add");
 }
 
 value remove(value self, value v) {
-    if (self.type == value::SET) {
-        return set::remove(self, v);
-    }
-    throw std::runtime_error("invalid type for remove");
+  if (self.type == value::SET) {
+    return set::remove(self, v);
+  }
+  throw std::runtime_error("invalid type for remove");
 }
 
 value pop(value self) {
-    if (self.type == value::LIST) {
-        return list::pop(self);
-    }
-    throw std::runtime_error("invalid type for pop");
+  if (self.type == value::LIST) {
+    return list::pop(self);
+  }
+  throw std::runtime_error("invalid type for pop");
 }
