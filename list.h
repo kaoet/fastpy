@@ -6,10 +6,10 @@ namespace list {
 
 value make();
 
-void append(value self, value v);
+value append(value self, value v);
 value pop(value self);
 value __getitem__(value self, value k);
-void __setitem__(value self, value k, value v);
+value __setitem__(value self, value k, value v);
 value __add__(value x, value y);
 value __mul__(value self, value n);
 value __len__(value self);
@@ -20,7 +20,7 @@ value __le__(value x, value y);
 value __ge__(value x, value y);
 value __gt__(value x, value y);
 value __contains__(value self, value v);
-void __delitem__(value self, value k);
+value __delitem__(value self, value k);
 value __bool__(value self);
 
 }

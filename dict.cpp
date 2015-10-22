@@ -2,6 +2,7 @@
 #include "bool.h"
 #include "int.h"
 #include "assert.h"
+#include "none.h"
 
 namespace dict {
     
@@ -21,9 +22,10 @@ value __getitem__(value self, value k) {
     return it->second;
 }
 
-void __setitem__(value self, value k, value v) {
+value __setitem__(value self, value k, value v) {
     assert(self.type == value::DICT);
     (*self.dictval)[k] = v;
+    return none::make();
 }
 
 value __contains__(value self, value k) {
@@ -31,9 +33,10 @@ value __contains__(value self, value k) {
     return bool_::make(self.dictval->find(k) != self.dictval->end());
 }
 
-void __delitem__(value self, value k) {
+value __delitem__(value self, value k) {
     assert(self.type == value::DICT);
     self.dictval->erase(k);
+    return none::make();
 }
 
 value __bool__(value self) {

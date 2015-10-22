@@ -2,6 +2,7 @@
 #include "bool.h"
 #include "int.h"
 #include "assert.h"
+#include "none.h"
 
 namespace set {
     
@@ -12,17 +13,19 @@ value make() {
     return ret;
 }
 
-void add(value self, value v) {
+value add(value self, value v) {
     assert(self.type == value::SET);
     self.setval->insert(v);
+    return none::make();
 }
 
-void remove(value self, value v) {
+value remove(value self, value v) {
     assert(self.type == value::SET);
     auto it = self.setval->find(v);
     if (it == self.setval->end())
         throw std::runtime_error("key error");
     self.setval->erase(it);
+    return none::make();
 }
 
 value __contains__(value self, value v) {

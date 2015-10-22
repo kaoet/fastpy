@@ -2,7 +2,7 @@
 
 struct value;
 
-void print(value v);
+value print(value v);
 value __add__(value x, value y);
 value __sub__(value x, value y);
 value __mul__(value x, value y);
@@ -11,8 +11,8 @@ value __mod__(value x, value y);
 value __len__(value self);
 value __getitem__(value self, value k);
 value __contains__(value self, value v);
-void __setitem__(value self, value k, value v);
-void __delitem__(value self, value k);
+value __setitem__(value self, value k, value v);
+value __delitem__(value self, value k);
 value __bool__(value self);
 value __eq__(value x, value y);
 value __ne__(value x, value y);
@@ -29,7 +29,7 @@ value __rshift__(value x, value y);
 value __iter__(value self);
 value __next__(value self);
 
-void append(value self, value v);
-void add(value self, value v);
-void remove(value self, value v);
+value append(value self, value v);
+value add(value self, value v);
+value remove(value self, value v);
 value pop(value self);

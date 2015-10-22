@@ -4,6 +4,7 @@
 #include "bool.h"
 #include "func.h"
 #include "assert.h"
+#include "none.h"
 
 namespace list {
 
@@ -14,9 +15,10 @@ value make() {
     return ret;
 }
 
-void append(value self, value v) {
+value append(value self, value v) {
     assert(self.type == value::LIST);
     self.listval->push_back(v);
+    return none::make();
 }
 
 value pop(value self) {
@@ -31,9 +33,10 @@ value __getitem__(value self, value k) {
     return self.listval->at(k.intval);
 }
 
-void __setitem__(value self, value k, value v) {
+value __setitem__(value self, value k, value v) {
     assert(self.type == value::LIST && k.type == value::INT);
     self.listval->at(k.intval) = v;
+    return none::make();
 }
 
 value __add__(value x, value y) {
@@ -110,9 +113,10 @@ value __contains__(value self, value v) {
     return bool_::make(false);
 }
 
-void __delitem__(value self, value k) {
+value __delitem__(value self, value k) {
     assert(self.type == value::LIST && k.type == value::INT);
     self.listval->erase(self.listval->begin() + k.intval);
+    return none::make();
 }
 
 value __bool__(value self) {

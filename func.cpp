@@ -10,7 +10,7 @@
 #include "range.h"
 #include "range_iterator.h"
 
-void print(value v) {
+value print(value v) {
   switch (v.type) {
   case value::NONE:
     printf(" None");
@@ -59,6 +59,7 @@ void print(value v) {
   default:
     throw std::runtime_error("invalid value to print");
   }
+  return none::make();
 }
 
 value __add__(value x, value y) {
@@ -251,12 +252,11 @@ value __contains__(value self, value v) {
   throw std::runtime_error("invalid argument type for in");
 }
 
-void __setitem__(value self, value k, value v) {
+value __setitem__(value self, value k, value v) {
   switch (self.type) {
   case value::LIST:
     if (k.type == value::INT) {
-      list::__setitem__(self, k, v);
-      return;
+      return list::__setitem__(self, k, v);
     }
   case value::DICT:
     switch (k.type) {
@@ -271,11 +271,10 @@ void __setitem__(value self, value k, value v) {
   throw std::runtime_error("invalid argument type for []=");
 }
 
-void __delitem__(value self, value k) {
+value __delitem__(value self, value k) {
   switch (self.type) {
   case value::LIST:
-    list::__delitem__(self, k);
-    return;
+    return list::__delitem__(self, k);
   case value::DICT:
     switch (k.type) {
     case value::NONE:
@@ -283,8 +282,7 @@ void __delitem__(value self, value k) {
     case value::INT:
     case value::FLOAT:
     case value::STR:
-      dict::__delitem__(self, k);
-      return;
+      return dict::__delitem__(self, k);
     }
   }
   throw std::runtime_error("invalid argument type for del");
@@ -746,26 +744,23 @@ value __next__(value self) {
     throw std::runtime_error("invalid type for __next__");
 }
 
-void append(value self, value v) {
+value append(value self, value v) {
     if (self.type == value::LIST) {
-        list::append(self, v);
-        return;
+        return list::append(self, v);
     }
     throw std::runtime_error("invalid type for append");
 }
 
-void add(value self, value v) {
+value add(value self, value v) {
     if (self.type == value::SET) {
-        set::add(self, v);
-        return;
+        return set::add(self, v);
     }
     throw std::runtime_error("invalid type for add");
 }
 
-void remove(value self, value v) {
+value remove(value self, value v) {
     if (self.type == value::SET) {
-        set::remove(self, v);
-        return;
+        return set::remove(self, v);
     }
     throw std::runtime_error("invalid type for remove");
 }

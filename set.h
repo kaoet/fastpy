@@ -5,8 +5,8 @@
 namespace set {
     
 value make();
-void add(value self, value v);
-void remove(value self, value v);
+value add(value self, value v);
+value remove(value self, value v);
 value __contains__(value self, value v);
 value __bool__(value self);
 value __len__(value self);
