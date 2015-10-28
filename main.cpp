@@ -224,7 +224,6 @@ void test_list() {
   l = list3();
   __setitem__(l, slice::__init__(int_::make(2), int_::make(3), int_::make(1)),
               list4());
-              print(l);
   assert(l == list3_setslice2());
 }
 

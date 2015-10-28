@@ -27,11 +27,6 @@ value __mul__(value x, value y) {
     return make(x.intval * y.intval);
 }
 
-value __truediv__(value x, value y) {
-    assert(x.type == value::INT && y.type == value::INT);
-    return float_::make((double) x.intval / (double) y.intval);
-}
-
 value __mod__(value x, value y) {
     assert(x.type == value::INT && y.type == value::INT);
     return make(x.intval % y.intval);

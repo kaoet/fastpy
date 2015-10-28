@@ -64,8 +64,20 @@ value print(value v) {
 
 value __add__(value x, value y) {
   switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__add__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__add__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__add__(bool_::__float__(x), y);
+    }
+    break;
   case value::INT:
     switch (y.type) {
+    case value::BOOL:
+      return int_::__add__(x, bool_::__int__(y));
     case value::INT:
       return int_::__add__(x, y);
     case value::FLOAT:
@@ -74,6 +86,8 @@ value __add__(value x, value y) {
     break;
   case value::FLOAT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__add__(x, bool_::__float__(y));
     case value::INT:
       return float_::__add__(x, int_::__float__(y));
     case value::FLOAT:
@@ -95,8 +109,20 @@ value __add__(value x, value y) {
 
 value __sub__(value x, value y) {
   switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__sub__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__sub__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__sub__(bool_::__float__(x), y);
+    }
+    break;
   case value::INT:
     switch (y.type) {
+    case value::BOOL:
+      return int_::__sub__(x, bool_::__int__(y));
     case value::INT:
       return int_::__sub__(x, y);
     case value::FLOAT:
@@ -105,6 +131,8 @@ value __sub__(value x, value y) {
     break;
   case value::FLOAT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__sub__(x, bool_::__float__(y));
     case value::INT:
       return float_::__sub__(x, int_::__float__(y));
     case value::FLOAT:
@@ -116,8 +144,24 @@ value __sub__(value x, value y) {
 
 value __mul__(value x, value y) {
   switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__mul__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__mul__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__mul__(bool_::__float__(x), y);
+    case value::STR:
+      return str::__mul__(y, bool_::__int__(x));
+    case value::LIST:
+      return list::__mul__(y, bool_::__int__(x));
+    }
+    break;
   case value::INT:
     switch (y.type) {
+    case value::BOOL:
+      return int_::__mul__(x, bool_::__int__(y));
     case value::INT:
       return int_::__mul__(x, y);
     case value::FLOAT:
@@ -130,6 +174,8 @@ value __mul__(value x, value y) {
     break;
   case value::FLOAT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__mul__(x, bool_::__float__(y));
     case value::INT:
       return float_::__mul__(x, int_::__float__(y));
     case value::FLOAT:
@@ -137,12 +183,18 @@ value __mul__(value x, value y) {
     }
     break;
   case value::STR:
-    if (y.type == value::INT) {
+    switch (y.type) {
+    case value::BOOL:
+      return str::__mul__(x, bool_::__int__(y));
+    case value::INT:
       return str::__mul__(x, y);
     }
     break;
   case value::LIST:
-    if (y.type == value::INT) {
+    switch (y.type) {
+    case value::BOOL:
+      return list::__mul__(x, bool_::__int__(y));
+    case value::INT:
       return list::__mul__(x, y);
     }
   }
@@ -151,16 +203,30 @@ value __mul__(value x, value y) {
 
 value __truediv__(value x, value y) {
   switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return float_::__truediv__(bool_::__float__(x), bool_::__float__(y));
+    case value::INT:
+      return float_::__truediv__(bool_::__float__(x), int_::__float__(y));
+    case value::FLOAT:
+      return float_::__truediv__(bool_::__float__(x), y);
+    }
+    break;
   case value::INT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__truediv__(int_::__float__(x), bool_::__int__(y));
     case value::INT:
-      return int_::__truediv__(x, y);
+      return float_::__truediv__(int_::__float__(x), int_::__float__(y));
     case value::FLOAT:
       return float_::__truediv__(int_::__float__(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__truediv__(x, bool_::__float__(y));
     case value::INT:
       return float_::__truediv__(x, int_::__float__(y));
     case value::FLOAT:
@@ -172,8 +238,20 @@ value __truediv__(value x, value y) {
 
 value __mod__(value x, value y) {
   switch (x.type) {
+  case value::BOOL:
+    switch (y.type) {
+    case value::BOOL:
+      return int_::__mod__(bool_::__int__(x), bool_::__int__(y));
+    case value::INT:
+      return int_::__mod__(bool_::__int__(x), y);
+    case value::FLOAT:
+      return float_::__mod__(bool_::__float__(x), y);
+    }
+    break;
   case value::INT:
     switch (y.type) {
+    case value::BOOL:
+      return int_::__mod__(x, bool_::__int__(y));
     case value::INT:
       return int_::__mod__(x, y);
     case value::FLOAT:
@@ -182,6 +260,8 @@ value __mod__(value x, value y) {
     break;
   case value::FLOAT:
     switch (y.type) {
+    case value::BOOL:
+      return float_::__mod__(x, bool_::__float__(y));
     case value::INT:
       return float_::__mod__(x, int_::__float__(y));
     case value::FLOAT:
