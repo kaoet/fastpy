@@ -13,5 +13,6 @@ value __bool__(value self);
 value __len__(value self);
 value __eq__(value x, value y);
 value __ne__(value x, value y);
+value __iter__(value self);
 
 }

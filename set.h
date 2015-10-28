@@ -16,5 +16,6 @@ value __lt__(value x, value y);
 value __le__(value x, value y);
 value __ge__(value x, value y);
 value __gt__(value x, value y);
+value __iter__(value self);
 
 }

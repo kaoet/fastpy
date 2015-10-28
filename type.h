@@ -15,9 +15,11 @@ typedef struct { long start, stop, step; } range_t;
 typedef range_t range_iterator_t;
 typedef struct { long start, stop, step; } slice_t;
 typedef struct { list_t *list; size_t index; } list_iterator_t;
+struct set_iterator_t;
+struct dict_iterator_t;
 
 struct value {
-    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE, LIST_ITERATOR } type;
+    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE, LIST_ITERATOR, SET_ITERATOR, DICT_ITERATOR } type;
     union {
         bool boolval;
         long intval;
@@ -30,6 +32,8 @@ struct value {
         range_iterator_t *range_iteratorval;
         slice_t *sliceval;
         list_iterator_t *list_iteratorval;
+        set_iterator_t *set_iteratorval;
+        dict_iterator_t *dict_iteratorval;
     };
     
     bool operator ==(value other) const {
@@ -128,3 +132,6 @@ namespace std {
         }
     };
 }
+
+struct set_iterator_t { set_t::const_iterator cur, end; };
+struct dict_iterator_t { dict_t::const_iterator cur, end; };

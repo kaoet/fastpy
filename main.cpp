@@ -268,6 +268,12 @@ void test_set() {
   s = set1();
   remove(s, str::make("3"));
   assert(s == set1_removed());
+  
+  value iter = __iter__(set1());
+  assert(__next__(iter) != none::make());
+  assert(__next__(iter) != none::make());
+  assert(__next__(iter) != none::make());
+  assert(__next__(iter) == none::make());
 }
 
 value dict1() {
@@ -305,6 +311,11 @@ void test_dict() {
   d = dict1();
   __delitem__(d, str::make("a"));
   assert(d == dict1_del());
+  
+  value iter = __iter__(dict1());
+  assert(__next__(iter) != none::make());
+  assert(__next__(iter) != none::make());
+  assert(__next__(iter) == none::make());
 }
 
 void test_range() {

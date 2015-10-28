@@ -3,6 +3,7 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
+#include "dict_iterator.h"
 
 namespace dict {
     
@@ -57,6 +58,11 @@ value __eq__(value x, value y) {
 value __ne__(value x, value y) {
     assert(x.type == value::DICT && y.type == value::DICT);
     return bool_::make(*x.dictval != *y.dictval);
+}
+
+value __iter__(value self) {
+    assert(self.type == value::DICT);
+    return dict_iterator::make(self.dictval);
 }
 
 }

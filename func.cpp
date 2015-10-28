@@ -10,6 +10,8 @@
 #include "range.h"
 #include "range_iterator.h"
 #include "list_iterator.h"
+#include "set_iterator.h"
+#include "dict_iterator.h"
 
 value print(value v) {
   switch (v.type) {
@@ -801,20 +803,28 @@ value __rshift__(value x, value y) {
 
 value __iter__(value self) {
   switch (self.type) {
-      case value::RANGE:
+  case value::RANGE:
     return range::__iter__(self);
-    case value::LIST:
+  case value::LIST:
     return list::__iter__(self);
+  case value::SET:
+    return set::__iter__(self);
+  case value::DICT:
+    return dict::__iter__(self);
   }
   throw std::runtime_error("invalid type for __iter__");
 }
 
 value __next__(value self) {
   switch (self.type) {
-      case value::RANGE_ITERATOR:
+  case value::RANGE_ITERATOR:
     return range_iterator::__next__(self);
-    case value::LIST_ITERATOR:
+  case value::LIST_ITERATOR:
     return list_iterator::__next__(self);
+  case value::SET_ITERATOR:
+    return set_iterator::__next__(self);
+  case value::DICT_ITERATOR:
+    return dict_iterator::__next__(self);
   }
   throw std::runtime_error("invalid type for __next__");
 }

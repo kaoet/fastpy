@@ -3,6 +3,7 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
+#include "set_iterator.h"
 
 namespace set {
     
@@ -85,6 +86,11 @@ value __ge__(value x, value y) {
 
 value __gt__(value x, value y) {
     return set::__lt__(y, x);
+}
+
+value __iter__(value self) {
+    assert(self.type == value::SET);
+    return set_iterator::make(self.setval);
 }
 
 }
