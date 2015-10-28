@@ -9,6 +9,7 @@
 #include "none.h"
 #include "range.h"
 #include "range_iterator.h"
+#include "list_iterator.h"
 
 value print(value v) {
   switch (v.type) {
@@ -326,14 +327,7 @@ value __contains__(value self, value v) {
   case value::SET:
     return set::__contains__(self, v);
   case value::DICT:
-    switch (v.type) {
-    case value::NONE:
-    case value::BOOL:
-    case value::INT:
-    case value::FLOAT:
-    case value::STR:
-      return dict::__contains__(self, v);
-    }
+    return dict::__contains__(self, v);
   }
   throw std::runtime_error("invalid argument type for in");
 }
@@ -348,14 +342,7 @@ value __setitem__(value self, value k, value v) {
     }
     break;
   case value::DICT:
-    switch (k.type) {
-    case value::NONE:
-    case value::BOOL:
-    case value::INT:
-    case value::FLOAT:
-    case value::STR:
-      return dict::__setitem__(self, k, v);
-    }
+    return dict::__setitem__(self, k, v);
   }
   throw std::runtime_error("invalid argument type for []=");
 }
@@ -365,14 +352,7 @@ value __delitem__(value self, value k) {
   case value::LIST:
     return list::__delitem__(self, k);
   case value::DICT:
-    switch (k.type) {
-    case value::NONE:
-    case value::BOOL:
-    case value::INT:
-    case value::FLOAT:
-    case value::STR:
-      return dict::__delitem__(self, k);
-    }
+    return dict::__delitem__(self, k);
   }
   throw std::runtime_error("invalid argument type for del");
 }
@@ -820,15 +800,21 @@ value __rshift__(value x, value y) {
 }
 
 value __iter__(value self) {
-  if (self.type == value::RANGE) {
+  switch (self.type) {
+      case value::RANGE:
     return range::__iter__(self);
+    case value::LIST:
+    return list::__iter__(self);
   }
   throw std::runtime_error("invalid type for __iter__");
 }
 
 value __next__(value self) {
-  if (self.type == value::RANGE_ITERATOR) {
+  switch (self.type) {
+      case value::RANGE_ITERATOR:
     return range_iterator::__next__(self);
+    case value::LIST_ITERATOR:
+    return list_iterator::__next__(self);
   }
   throw std::runtime_error("invalid type for __next__");
 }

@@ -225,6 +225,12 @@ void test_list() {
   __setitem__(l, slice::__init__(int_::make(2), int_::make(3), int_::make(1)),
               list4());
   assert(l == list3_setslice2());
+  
+  value iter = __iter__(list1());
+  assert(__next__(iter) == int_::make(2));
+  assert(__next__(iter) == float_::make(3.0));
+  assert(__next__(iter) == str::make("4"));
+  assert(__next__(iter) == none::make());
 }
 
 value set1() {

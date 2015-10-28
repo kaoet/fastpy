@@ -6,6 +6,7 @@
 #include "func.h"
 #include "assert.h"
 #include "none.h"
+#include "list_iterator.h"
 
 namespace list {
 
@@ -198,5 +199,10 @@ value __delitem__(value self, value k) {
 value __bool__(value self) {
   assert(self.type == value::LIST);
   return bool_::make(!self.listval->empty());
+}
+
+value __iter__(value self) {
+  assert(self.type == value::LIST);
+  return list_iterator::make(self.listval);
 }
 }

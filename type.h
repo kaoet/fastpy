@@ -14,9 +14,10 @@ typedef std::unordered_map<value, value> dict_t;
 typedef struct { long start, stop, step; } range_t;
 typedef range_t range_iterator_t;
 typedef struct { long start, stop, step; } slice_t;
+typedef struct { list_t *list; size_t index; } list_iterator_t;
 
 struct value {
-    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE } type;
+    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE, LIST_ITERATOR } type;
     union {
         bool boolval;
         long intval;
@@ -28,6 +29,7 @@ struct value {
         range_t *rangeval;
         range_iterator_t *range_iteratorval;
         slice_t *sliceval;
+        list_iterator_t *list_iteratorval;
     };
     
     bool operator ==(value other) const {

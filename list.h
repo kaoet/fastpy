@@ -22,5 +22,6 @@ value __gt__(value x, value y);
 value __contains__(value self, value v);
 value __delitem__(value self, value k);
 value __bool__(value self);
+value __iter__(value self);
 
 }
