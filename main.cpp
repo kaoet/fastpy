@@ -225,6 +225,12 @@ void test_list() {
   __setitem__(l, __init__$slice$int_$int_$int_(make$int_(2), make$int_(3), make$int_(1)),
               list4());
   assert(l == list3_setslice2());
+  
+  value iter = __iter__(list1());
+  assert(__next__(iter) == make$int_(2));
+  assert(__next__(iter) == make$float_(3.0));
+  assert(__next__(iter) == make$str("4"));
+  assert(__next__(iter) == make$none());
 }
 
 value set1() {
@@ -262,6 +268,12 @@ void test_set() {
   s = set1();
   remove(s, make$str("3"));
   assert(s == set1_removed());
+  
+  value iter = __iter__(set1());
+  assert(__next__(iter) != make$none());
+  assert(__next__(iter) != make$none());
+  assert(__next__(iter) != make$none());
+  assert(__next__(iter) == make$none());
 }
 
 value dict1() {
@@ -299,6 +311,11 @@ void test_dict() {
   d = dict1();
   __delitem__(d, make$str("a"));
   assert(d == dict1_del());
+  
+  value iter = __iter__(dict1());
+  assert(__next__(iter) != make$none());
+  assert(__next__(iter) != make$none());
+  assert(__next__(iter) == make$none());
 }
 
 void test_range() {

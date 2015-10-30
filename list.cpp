@@ -6,6 +6,7 @@
 #include "func.h"
 #include "assert.h"
 #include "none.h"
+#include "list_iterator.h"
 
 value make$list() {
   value ret;
@@ -218,4 +219,9 @@ value __setitem__$list$slice$(value self, value k, value v) {
     }
   }
   return make$none();
+}
+
+value __iter__$list(value self) {
+  assert(self.type == value::LIST);
+  return make$list_iterator(self.listval);
 }

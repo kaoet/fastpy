@@ -9,6 +9,9 @@
 #include "none.h"
 #include "range.h"
 #include "range_iterator.h"
+#include "list_iterator.h"
+#include "set_iterator.h"
+#include "dict_iterator.h"
 
 value print(value v) {
   switch (v.type) {
@@ -826,15 +829,29 @@ value __rshift__(value x, value y) {
 }
 
 value __iter__(value self) {
-  if (self.type == value::RANGE) {
+  switch (self.type) {
+  case value::RANGE:
     return __iter__$range(self);
+  case value::LIST:
+    return __iter__$list(self);
+  case value::SET:
+    return __iter__$set(self);
+  case value::DICT:
+    return __iter__$dict(self);
   }
   throw std::runtime_error("invalid type for __iter__");
 }
 
 value __next__(value self) {
-  if (self.type == value::RANGE_ITERATOR) {
+  switch (self.type) {
+  case value::RANGE_ITERATOR:
     return __next__$range_iterator(self);
+  case value::LIST_ITERATOR:
+    return __next__$list_iterator(self);
+  case value::SET_ITERATOR:
+    return __next__$set_iterator(self);
+  case value::DICT_ITERATOR:
+    return __next__$dict_iterator(self);
   }
   throw std::runtime_error("invalid type for __next__");
 }

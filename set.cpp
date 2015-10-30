@@ -3,6 +3,7 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
+#include "set_iterator.h"
   
 value make$set() {
     value ret;
@@ -83,4 +84,9 @@ value __ge__$set$set(value x, value y) {
 
 value __gt__$set$set(value x, value y) {
     return __lt__$set$set(y, x);
+}
+
+value __iter__$set(value self) {
+    assert(self.type == value::SET);
+    return make$set_iterator(self.setval);
 }

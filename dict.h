@@ -11,3 +11,5 @@ value __bool__$dict(value self);
 value __len__$dict(value self);
 value __eq__$dict$dict(value x, value y);
 value __ne__$dict$dict(value x, value y);
+value __iter__$dict(value self);
+

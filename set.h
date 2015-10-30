@@ -2,7 +2,6 @@
 
 #include "type.h"
 
-
 value make$set();
 value add$set$(value self, value v);
 value remove$set$(value self, value v);
@@ -15,3 +14,4 @@ value __lt__$set$set(value x, value y);
 value __le__$set$set(value x, value y);
 value __ge__$set$set(value x, value y);
 value __gt__$set$set(value x, value y);
+value __iter__$set(value self);

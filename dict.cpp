@@ -3,6 +3,7 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
+#include "dict_iterator.h"
     
 value make$dict() {
     value ret;
@@ -55,4 +56,9 @@ value __eq__$dict$dict(value x, value y) {
 value __ne__$dict$dict(value x, value y) {
     assert(x.type == value::DICT && y.type == value::DICT);
     return make$bool_(*x.dictval != *y.dictval);
+}
+
+value __iter__$dict(value self) {
+    assert(self.type == value::DICT);
+    return make$dict_iterator(self.dictval);
 }

@@ -3,7 +3,6 @@
 #include "type.h"
 
 value make$list();
-
 value append$list$(value self, value v);
 value pop$list(value self);
 value __getitem__$list$(value self, value k);
@@ -25,3 +24,5 @@ value __contains__$list$(value self, value v);
 value __delitem__$list$int_(value self, value k);
 value __delitem__$list$slice(value self, value k);
 value __bool__$list(value self);
+value __iter__$list(value self);
+
