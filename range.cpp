@@ -2,13 +2,11 @@
 #include "assert.h"
 #include "range_iterator.h"
 
-namespace range {
-
-value __init__(value stop) {
-    return __init__(int_::make(0), stop, int_::make(1));
+value __init__$range$int_(value stop) {
+    return __init__$range$int_$int_$int_(make$int_(0), stop, make$int_(1));
 }
 
-value __init__(value start, value stop, value step) {
+value __init__$range$int_$int_$int_(value start, value stop, value step) {
   assert(start.type == value::INT && stop.type == value::INT && step.type == value::INT);
   
   if (step.intval == 0)
@@ -19,8 +17,7 @@ value __init__(value start, value stop, value step) {
   return ret;
 }
 
-value __iter__(value self) {
+value __iter__$range(value self) {
   assert(self.type == value::RANGE);
-  return range_iterator::make(self.rangeval);
-}
+  return make$range_iterator(self.rangeval);
 }

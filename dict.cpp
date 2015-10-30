@@ -3,17 +3,15 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
-
-namespace dict {
     
-value make() {
+value make$dict() {
     value ret;
     ret.type = value::DICT;
     ret.dictval = new dict_t();
     return ret;
 }
 
-value __getitem__(value self, value k) {
+value __getitem__$dict$(value self, value k) {
     assert(self.type == value::DICT);
     auto it = self.dictval->find(k);
     if (it == self.dictval->end()) {
@@ -22,41 +20,39 @@ value __getitem__(value self, value k) {
     return it->second;
 }
 
-value __setitem__(value self, value k, value v) {
+value __setitem__$dict$$(value self, value k, value v) {
     assert(self.type == value::DICT);
     (*self.dictval)[k] = v;
-    return none::make();
+    return make$none();
 }
 
-value __contains__(value self, value k) {
+value __contains__$dict$(value self, value k) {
     assert(self.type == value::DICT);
-    return bool_::make(self.dictval->find(k) != self.dictval->end());
+    return make$bool_(self.dictval->find(k) != self.dictval->end());
 }
 
-value __delitem__(value self, value k) {
+value __delitem__$dict$(value self, value k) {
     assert(self.type == value::DICT);
     self.dictval->erase(k);
-    return none::make();
+    return make$none();
 }
 
-value __bool__(value self) {
+value __bool__$dict(value self) {
     assert(self.type == value::DICT);
-    return bool_::make(!self.dictval->empty());
+    return make$bool_(!self.dictval->empty());
 }
 
-value __len__(value self) {
+value __len__$dict(value self) {
     assert(self.type == value::DICT);
-    return int_::make(self.dictval->size());
+    return make$int_(self.dictval->size());
 }
 
-value __eq__(value x, value y) {
+value __eq__$dict$dict(value x, value y) {
     assert(x.type == value::DICT && y.type == value::DICT);
-    return bool_::make(*x.dictval == *y.dictval);
+    return make$bool_(*x.dictval == *y.dictval);
 }
 
-value __ne__(value x, value y) {
+value __ne__$dict$dict(value x, value y) {
     assert(x.type == value::DICT && y.type == value::DICT);
-    return bool_::make(*x.dictval != *y.dictval);
-}
-
+    return make$bool_(*x.dictval != *y.dictval);
 }

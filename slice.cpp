@@ -1,12 +1,11 @@
 #include "slice.h"
 #include "assert.h"
 
-namespace slice {
-value __init__(value stop) {
-  return __init__(int_::make(0), stop, int_::make(1));
+value __init__$slice$int_(value stop) {
+  return __init__$slice$int_$int_$int_(make$int_(0), stop, make$int_(1));
 }
 
-value __init__(value start, value stop, value step) {
+value __init__$slice$int_$int_$int_(value start, value stop, value step) {
   assert(start.type == value::INT && stop.type == value::INT &&
          step.type == value::INT);
 
@@ -16,5 +15,4 @@ value __init__(value start, value stop, value step) {
   ret.type = value::SLICE;
   ret.sliceval = new slice_t{start.intval, stop.intval, step.intval};
   return ret;
-}
 }

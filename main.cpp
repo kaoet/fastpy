@@ -16,304 +16,304 @@
 #include "slice.h"
 
 void test_none() {
-  assert(none::make() == none::make());
-  assert(__bool__(none::make()) == bool_::make(false));
+  assert(make$none() == make$none());
+  assert(__bool__(make$none()) == make$bool_(false));
 }
 
 void test_bool() {
-  assert(bool_::make(true) == int_::make(1));
-  assert(bool_::make(false) == float_::make(0));
-  assert(bool_::make(false) < bool_::make(true));
-  assert(!(bool_::make(false) < bool_::make(false)));
-  assert(bool_::make(true) <= bool_::make(true));
-  assert(bool_::make(true) > int_::make(0));
-  assert(bool_::make(true) >= float_::make(0.5));
-  assert(__bool__(bool_::make(true)));
-  assert(!__bool__(bool_::make(false)));
-  assert(bool_::make(true) & bool_::make(true));
-  assert(!(bool_::make(false) | bool_::make(false)));
-  assert(!(bool_::make(true) ^ bool_::make(true)));
-  assert(~bool_::make(true) == int_::make(-2));
-  assert((bool_::make(true) << bool_::make(true)) == int_::make(2));
-  assert((int_::make(3) >> bool_::make(true)) == int_::make(1));
+  assert(make$bool_(true) == make$int_(1));
+  assert(make$bool_(false) == make$float_(0));
+  assert(make$bool_(false) < make$bool_(true));
+  assert(!(make$bool_(false) < make$bool_(false)));
+  assert(make$bool_(true) <= make$bool_(true));
+  assert(make$bool_(true) > make$int_(0));
+  assert(make$bool_(true) >= make$float_(0.5));
+  assert(__bool__(make$bool_(true)));
+  assert(!__bool__(make$bool_(false)));
+  assert(make$bool_(true) & make$bool_(true));
+  assert(!(make$bool_(false) | make$bool_(false)));
+  assert(!(make$bool_(true) ^ make$bool_(true)));
+  assert(~make$bool_(true) == make$int_(-2));
+  assert((make$bool_(true) << make$bool_(true)) == make$int_(2));
+  assert((make$int_(3) >> make$bool_(true)) == make$int_(1));
 }
 
 void test_int() {
-  assert(int_::make(1) + int_::make(2) == int_::make(3));
-  assert(int_::make(1) - int_::make(2) == int_::make(-1));
-  assert(int_::make(3) * int_::make(4) == int_::make(12));
-  assert(int_::make(10) / int_::make(3) == float_::make(10.0 / 3.0));
-  assert(int_::make(10) % int_::make(3) == int_::make(1));
-  assert(int_::make(3) + float_::make(4.5) == float_::make(7.5));
-  assert(int_::make(2) == float_::make(2.0));
-  assert(int_::make(2) < float_::make(2.1));
-  assert(__bool__(int_::make(1)));
-  assert(!__bool__(int_::make(0)));
-  assert((int_::make(123) & int_::make(456)) == int_::make(123 & 456));
-  assert((int_::make(-3) >> int_::make(1)) == int_::make(-2));
+  assert(make$int_(1) + make$int_(2) == make$int_(3));
+  assert(make$int_(1) - make$int_(2) == make$int_(-1));
+  assert(make$int_(3) * make$int_(4) == make$int_(12));
+  assert(make$int_(10) / make$int_(3) == make$float_(10.0 / 3.0));
+  assert(make$int_(10) % make$int_(3) == make$int_(1));
+  assert(make$int_(3) + make$float_(4.5) == make$float_(7.5));
+  assert(make$int_(2) == make$float_(2.0));
+  assert(make$int_(2) < make$float_(2.1));
+  assert(__bool__(make$int_(1)));
+  assert(!__bool__(make$int_(0)));
+  assert((make$int_(123) & make$int_(456)) == make$int_(123 & 456));
+  assert((make$int_(-3) >> make$int_(1)) == make$int_(-2));
 }
 
 void test_float() {
-  assert(float_::make(1.1) + float_::make(2.2) == float_::make(1.1 + 2.2));
-  assert(float_::make(1.1) - float_::make(2.2) == float_::make(1.1 - 2.2));
-  assert(float_::make(1.1) * float_::make(2.2) == float_::make(1.1 * 2.2));
-  assert(float_::make(1.1) / float_::make(2.2) == float_::make(1.1 / 2.2));
-  assert(float_::make(10.75) % float_::make(5.25) == float_::make(0.25));
-  assert(float_::make(3.8) >= float_::make(3.8));
+  assert(make$float_(1.1) + make$float_(2.2) == make$float_(1.1 + 2.2));
+  assert(make$float_(1.1) - make$float_(2.2) == make$float_(1.1 - 2.2));
+  assert(make$float_(1.1) * make$float_(2.2) == make$float_(1.1 * 2.2));
+  assert(make$float_(1.1) / make$float_(2.2) == make$float_(1.1 / 2.2));
+  assert(make$float_(10.75) % make$float_(5.25) == make$float_(0.25));
+  assert(make$float_(3.8) >= make$float_(3.8));
 }
 
 void test_str() {
-  assert(str::make("hello") == str::make("hello"));
-  assert(__getitem__(str::make("hello"), int_::make(1)) == str::make("e"));
-  assert(str::make("hello") + str::make("world") == str::make("helloworld"));
-  assert(str::make("he") * int_::make(5) == str::make("hehehehehe"));
-  assert(int_::make(-10) * str::make("whatever") == str::make(""));
-  assert(__len__(str::make("12345")) == int_::make(5));
-  assert(__contains__(str::make("foobar"), str::make("oob")) ==
-         bool_::make(true));
-  assert(__contains__(str::make("foobar"), str::make("boo")) ==
-         bool_::make(false));
-  assert(__bool__(str::make("")) == bool_::make(false));
-  assert(__bool__(str::make("a")) == bool_::make(true));
-  assert(str::make("abc") < str::make("abcd"));
-  assert(str::make("abd") >= str::make("abcd"));
-  assert(__getitem__(str::make("0123456"),
-                     slice::__init__(int_::make(1), int_::make(50),
-                                     int_::make(2))) == str::make("135"));
+  assert(make$str("hello") == make$str("hello"));
+  assert(__getitem__(make$str("hello"), make$int_(1)) == make$str("e"));
+  assert(make$str("hello") + make$str("world") == make$str("helloworld"));
+  assert(make$str("he") * make$int_(5) == make$str("hehehehehe"));
+  assert(make$int_(-10) * make$str("whatever") == make$str(""));
+  assert(__len__(make$str("12345")) == make$int_(5));
+  assert(__contains__(make$str("foobar"), make$str("oob")) ==
+         make$bool_(true));
+  assert(__contains__(make$str("foobar"), make$str("boo")) ==
+         make$bool_(false));
+  assert(__bool__(make$str("")) == make$bool_(false));
+  assert(__bool__(make$str("a")) == make$bool_(true));
+  assert(make$str("abc") < make$str("abcd"));
+  assert(make$str("abd") >= make$str("abcd"));
+  assert(__getitem__(make$str("0123456"),
+                     __init__$slice$int_$int_$int_(make$int_(1), make$int_(50),
+                                     make$int_(2))) == make$str("135"));
 }
 
 value list1() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
-  append(l, str::make("4"));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
+  append(l, make$str("4"));
   return l;
 }
 
 value list2() {
-  value l = list::make();
-  append(l, int_::make(5));
-  append(l, float_::make(6.0));
+  value l = make$list();
+  append(l, make$int_(5));
+  append(l, make$float_(6.0));
   return l;
 }
 
 value list11() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, str::make("w"));
-  append(l, str::make("4"));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$str("w"));
+  append(l, make$str("4"));
   return l;
 }
 
 value list12() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
-  append(l, str::make("4"));
-  append(l, int_::make(5));
-  append(l, float_::make(6.0));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
+  append(l, make$str("4"));
+  append(l, make$int_(5));
+  append(l, make$float_(6.0));
   return l;
 }
 
 value list13() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
-  append(l, str::make("4"));
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
-  append(l, str::make("4"));
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
-  append(l, str::make("4"));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
+  append(l, make$str("4"));
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
+  append(l, make$str("4"));
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
+  append(l, make$str("4"));
   return l;
 }
 
 value list1_del() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, str::make("4"));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$str("4"));
   return l;
 }
 
 value list1_pop() {
-  value l = list::make();
-  append(l, int_::make(2));
-  append(l, float_::make(3.0));
+  value l = make$list();
+  append(l, make$int_(2));
+  append(l, make$float_(3.0));
   return l;
 }
 
 value list1_slice() {
-  value l = list::make();
-  append(l, str::make("4"));
-  append(l, int_::make(2));
+  value l = make$list();
+  append(l, make$str("4"));
+  append(l, make$int_(2));
   return l;
 }
 
 value list3() {
-  value l = list::make();
-  append(l, int_::make(0));
-  append(l, int_::make(1));
-  append(l, int_::make(2));
-  append(l, int_::make(3));
-  append(l, int_::make(4));
+  value l = make$list();
+  append(l, make$int_(0));
+  append(l, make$int_(1));
+  append(l, make$int_(2));
+  append(l, make$int_(3));
+  append(l, make$int_(4));
   return l;
 }
 
 value list4() {
-  value l = list::make();
-  append(l, int_::make(50));
-  append(l, int_::make(51));
+  value l = make$list();
+  append(l, make$int_(50));
+  append(l, make$int_(51));
   return l;
 }
 
 value list3_setslice1() {
-  value l = list::make();
-  append(l, int_::make(0));
-  append(l, int_::make(51));
-  append(l, int_::make(2));
-  append(l, int_::make(50));
-  append(l, int_::make(4));
+  value l = make$list();
+  append(l, make$int_(0));
+  append(l, make$int_(51));
+  append(l, make$int_(2));
+  append(l, make$int_(50));
+  append(l, make$int_(4));
   return l;
 }
 
 value list3_setslice2() {
-  value l = list::make();
-  append(l, int_::make(0));
-  append(l, int_::make(1));
-  append(l, int_::make(50));
-  append(l, int_::make(51));
-  append(l, int_::make(3));
-  append(l, int_::make(4));
+  value l = make$list();
+  append(l, make$int_(0));
+  append(l, make$int_(1));
+  append(l, make$int_(50));
+  append(l, make$int_(51));
+  append(l, make$int_(3));
+  append(l, make$int_(4));
   return l;
 }
 
 void test_list() {
   assert(list1() == list1());
-  assert(__len__(list1()) == int_::make(3));
-  assert(__getitem__(list1(), int_::make(1)) == float_::make(3.0));
+  assert(__len__(list1()) == make$int_(3));
+  assert(__getitem__(list1(), make$int_(1)) == make$float_(3.0));
   assert(list1() + list2() == list12());
-  assert(int_::make(3) * list1() == list13());
-  assert(__contains__(list1(), str::make("4")) == bool_::make(true));
-  assert(__contains__(list1(), str::make("5")) == bool_::make(false));
-  assert(__bool__(list::make()) == bool_::make(false));
-  assert(__bool__(list1()) == bool_::make(true));
+  assert(make$int_(3) * list1() == list13());
+  assert(__contains__(list1(), make$str("4")) == make$bool_(true));
+  assert(__contains__(list1(), make$str("5")) == make$bool_(false));
+  assert(__bool__(make$list()) == make$bool_(false));
+  assert(__bool__(list1()) == make$bool_(true));
   assert(list1() <= list12());
-  assert(__getitem__(list1(), slice::__init__(int_::make(10), int_::make(-10),
-                                              int_::make(-2))) ==
+  assert(__getitem__(list1(), __init__$slice$int_$int_$int_(make$int_(10), make$int_(-10),
+                                              make$int_(-2))) ==
          list1_slice());
 
   value l = list1();
-  __setitem__(l, int_::make(1), str::make("w"));
+  __setitem__(l, make$int_(1), make$str("w"));
   assert(l == list11());
 
   l = list1();
-  __delitem__(l, int_::make(1));
+  __delitem__(l, make$int_(1));
   assert(l == list1_del());
 
   l = list1();
-  assert(str::make("4") == pop(l));
+  assert(make$str("4") == pop(l));
   assert(l == list1_pop());
 
   l = list3();
   __setitem__(l,
-              slice::__init__(int_::make(3), int_::make(-50), int_::make(-2)),
+              __init__$slice$int_$int_$int_(make$int_(3), make$int_(-50), make$int_(-2)),
               list4());
   assert(l == list3_setslice1());
 
   l = list3();
-  __setitem__(l, slice::__init__(int_::make(2), int_::make(3), int_::make(1)),
+  __setitem__(l, __init__$slice$int_$int_$int_(make$int_(2), make$int_(3), make$int_(1)),
               list4());
   assert(l == list3_setslice2());
 }
 
 value set1() {
-  value s = set::make();
-  add(s, int_::make(1));
-  add(s, float_::make(2.0));
-  add(s, str::make("3"));
+  value s = make$set();
+  add(s, make$int_(1));
+  add(s, make$float_(2.0));
+  add(s, make$str("3"));
   return s;
 }
 
 value set1_removed() {
-  value s = set::make();
-  add(s, int_::make(1));
-  add(s, float_::make(2.0));
+  value s = make$set();
+  add(s, make$int_(1));
+  add(s, make$float_(2.0));
   return s;
 }
 
 void test_set() {
   assert(set1() == set1());
-  assert(__len__(set1()) == int_::make(3));
-  assert(__contains__(set1(), int_::make(1)));
-  assert(!__contains__(set1(), int_::make(4)));
+  assert(__len__(set1()) == make$int_(3));
+  assert(__contains__(set1(), make$int_(1)));
+  assert(!__contains__(set1(), make$int_(4)));
   assert(set1() > set1_removed());
   assert(!(set1() > set1()));
   assert(set1() >= set1());
 
   value s = set1();
-  add(s, str::make("3"));
+  add(s, make$str("3"));
   assert(s == set1());
 
   s = set1();
-  add(s, float_::make(1.0));
+  add(s, make$float_(1.0));
   assert(s == set1());
 
   s = set1();
-  remove(s, str::make("3"));
+  remove(s, make$str("3"));
   assert(s == set1_removed());
 }
 
 value dict1() {
-  value d = dict::make();
-  __setitem__(d, int_::make(1), int_::make(2));
-  __setitem__(d, str::make("a"), str::make("b"));
+  value d = make$dict();
+  __setitem__(d, make$int_(1), make$int_(2));
+  __setitem__(d, make$str("a"), make$str("b"));
   return d;
 }
 
 value dict1_added() {
-  value d = dict::make();
-  __setitem__(d, int_::make(1), str::make("foo"));
-  __setitem__(d, str::make("a"), str::make("b"));
+  value d = make$dict();
+  __setitem__(d, make$int_(1), make$str("foo"));
+  __setitem__(d, make$str("a"), make$str("b"));
   return d;
 }
 
 value dict1_del() {
-  value d = dict::make();
-  __setitem__(d, int_::make(1), int_::make(2));
+  value d = make$dict();
+  __setitem__(d, make$int_(1), make$int_(2));
   return d;
 }
 
 void test_dict() {
   assert(dict1() == dict1());
-  assert(__len__(dict1()) == int_::make(2));
-  assert(__contains__(dict1(), int_::make(1)));
-  assert(!__contains__(dict1(), int_::make(2)));
-  assert(__getitem__(dict1(), int_::make(1)) == int_::make(2));
+  assert(__len__(dict1()) == make$int_(2));
+  assert(__contains__(dict1(), make$int_(1)));
+  assert(!__contains__(dict1(), make$int_(2)));
+  assert(__getitem__(dict1(), make$int_(1)) == make$int_(2));
 
   value d = dict1();
-  __setitem__(d, int_::make(1), str::make("foo"));
+  __setitem__(d, make$int_(1), make$str("foo"));
   assert(d == dict1_added());
   assert(d != dict1());
 
   d = dict1();
-  __delitem__(d, str::make("a"));
+  __delitem__(d, make$str("a"));
   assert(d == dict1_del());
 }
 
 void test_range() {
-  value r = range::__init__(int_::make(3));
+  value r = __init__$range$int_(make$int_(3));
   value iter = __iter__(r);
-  assert(__next__(iter) == int_::make(0));
-  assert(__next__(iter) == int_::make(1));
-  assert(__next__(iter) == int_::make(2));
-  assert(__next__(iter) == none::make());
+  assert(__next__(iter) == make$int_(0));
+  assert(__next__(iter) == make$int_(1));
+  assert(__next__(iter) == make$int_(2));
+  assert(__next__(iter) == make$none());
 
-  r = range::__init__(int_::make(5), int_::make(1), int_::make(-2));
+  r = __init__$range$int_$int_$int_(make$int_(5), make$int_(1), make$int_(-2));
   iter = __iter__(r);
-  assert(__next__(iter) == int_::make(5));
-  assert(__next__(iter) == int_::make(3));
-  assert(__next__(iter) == none::make());
+  assert(__next__(iter) == make$int_(5));
+  assert(__next__(iter) == make$int_(3));
+  assert(__next__(iter) == make$none());
 }
 
 int main() {

@@ -3,88 +3,84 @@
 #include "int.h"
 #include "assert.h"
 #include "none.h"
-
-namespace set {
-    
-value make() {
+  
+value make$set() {
     value ret;
     ret.type = value::SET;
     ret.setval = new set_t();
     return ret;
 }
 
-value add(value self, value v) {
+value add$set$(value self, value v) {
     assert(self.type == value::SET);
     self.setval->insert(v);
-    return none::make();
+    return make$set();
 }
 
-value remove(value self, value v) {
+value remove$set$(value self, value v) {
     assert(self.type == value::SET);
     auto it = self.setval->find(v);
     if (it == self.setval->end())
         throw std::runtime_error("key error");
     self.setval->erase(it);
-    return none::make();
+    return make$set();
 }
 
-value __contains__(value self, value v) {
+value __contains__$set$(value self, value v) {
     assert(self.type == value::SET);
-    return bool_::make(self.setval->find(v) != self.setval->end());
+    return make$int_(self.setval->find(v) != self.setval->end());
 }
 
-value __bool__(value self) {
+value __bool__$set(value self) {
     assert(self.type == value::SET);
-    return bool_::make(!self.setval->empty());
+    return make$int_(!self.setval->empty());
 }
 
-value __len__(value self) {
+value __len__$set(value self) {
     assert(self.type == value::SET);
-    return int_::make(self.setval->size());
+    return make$int_(self.setval->size());
 }
 
-value __eq__(value x, value y) {
+value __eq__$set$set(value x, value y) {
     assert(x.type == value::SET && y.type == value::SET);
-    return bool_::make(*x.setval == *y.setval);
+    return make$int_(*x.setval == *y.setval);
 }
 
-value __ne__(value x, value y) {
+value __ne__$set$set(value x, value y) {
     assert(x.type == value::SET && y.type == value::SET);
-    return bool_::make(*x.setval != *y.setval);
+    return make$int_(*x.setval != *y.setval);
 }
 
-value __lt__(value x, value y) {
+value __lt__$set$set(value x, value y) {
     assert(x.type == value::SET && y.type == value::SET);
     
     if (x.setval->size() >= y.setval->size())
-        return bool_::make(false);
+        return make$int_(false);
     
     for (value v : *x.setval) {
         if (y.setval->find(v) == y.setval->end())
-            return bool_::make(false);
+            return make$int_(false);
     }
-    return bool_::make(true);
+    return make$int_(true);
 }
 
-value __le__(value x, value y) {
+value __le__$set$set(value x, value y) {
     assert(x.type == value::SET && y.type == value::SET);
     
     if (x.setval->size() > y.setval->size())
-        return bool_::make(false);
+        return make$int_(false);
     
     for (value v : *x.setval) {
         if (y.setval->find(v) == y.setval->end())
-            return bool_::make(false);
+            return make$int_(false);
     }
-    return bool_::make(true);
+    return make$int_(true);
 }
 
-value __ge__(value x, value y) {
-    return set::__le__(y, x);
+value __ge__$set$set(value x, value y) {
+    return __le__$set$set(y, x);
 }
 
-value __gt__(value x, value y) {
-    return set::__lt__(y, x);
-}
-
+value __gt__$set$set(value x, value y) {
+    return __lt__$set$set(y, x);
 }

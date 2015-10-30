@@ -59,7 +59,7 @@ value print(value v) {
   default:
     throw std::runtime_error("invalid value to print");
   }
-  return none::make();
+  return make$none();
 }
 
 value __add__(value x, value y) {
@@ -67,41 +67,41 @@ value __add__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__add__(bool_::__int__(x), bool_::__int__(y));
+      return __add__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__add__(bool_::__int__(x), y);
+      return __add__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__add__(bool_::__float__(x), y);
+      return __add__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__add__(x, bool_::__int__(y));
+      return __add__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__add__(x, y);
+      return __add__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__add__(int_::__float__(x), y);
+      return __add__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__add__(x, bool_::__float__(y));
+      return __add__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__add__(x, int_::__float__(y));
+      return __add__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__add__(x, y);
+      return __add__$float_$float_(x, y);
     }
     break;
   case value::LIST:
     if (y.type == value::LIST) {
-      return list::__add__(x, y);
+      return __add__$list$list(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR) {
-      return str::__add__(x, y);
+      return __add__$str$str(x, y);
     }
   }
   throw std::runtime_error("invalid argument type for +");
@@ -112,31 +112,31 @@ value __sub__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__sub__(bool_::__int__(x), bool_::__int__(y));
+      return __sub__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__sub__(bool_::__int__(x), y);
+      return __sub__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__sub__(bool_::__float__(x), y);
+      return __sub__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__sub__(x, bool_::__int__(y));
+      return __sub__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__sub__(x, y);
+      return __sub__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__sub__(int_::__float__(x), y);
+      return __sub__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__sub__(x, bool_::__float__(y));
+      return __sub__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__sub__(x, int_::__float__(y));
+      return __sub__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__sub__(x, y);
+      return __sub__$float_$float_(x, y);
     }
   }
   throw std::runtime_error("invalid argument type for -");
@@ -147,55 +147,55 @@ value __mul__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__mul__(bool_::__int__(x), bool_::__int__(y));
+      return __mul__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__mul__(bool_::__int__(x), y);
+      return __mul__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__mul__(bool_::__float__(x), y);
+      return __mul__$float_$float_(__float__$bool_(x), y);
     case value::STR:
-      return str::__mul__(y, bool_::__int__(x));
+      return __mul__$str$int_(y, __int__$bool_(x));
     case value::LIST:
-      return list::__mul__(y, bool_::__int__(x));
+      return __mul__$list$int_(y, __int__$bool_(x));
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__mul__(x, bool_::__int__(y));
+      return __mul__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__mul__(x, y);
+      return __mul__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__mul__(int_::__float__(x), y);
+      return __mul__$float_$float_(__float__$int_(x), y);
     case value::STR:
-      return str::__mul__(y, x);
+      return __mul__$str$int_(y, x);
     case value::LIST:
-      return list::__mul__(y, x);
+      return __mul__$list$int_(y, x);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__mul__(x, bool_::__float__(y));
+      return __mul__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__mul__(x, int_::__float__(y));
+      return __mul__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__mul__(x, y);
+      return __mul__$float_$float_(x, y);
     }
     break;
   case value::STR:
     switch (y.type) {
     case value::BOOL:
-      return str::__mul__(x, bool_::__int__(y));
+      return __mul__$str$int_(x, __int__$bool_(y));
     case value::INT:
-      return str::__mul__(x, y);
+      return __mul__$str$int_(x, y);
     }
     break;
   case value::LIST:
     switch (y.type) {
     case value::BOOL:
-      return list::__mul__(x, bool_::__int__(y));
+      return __mul__$list$int_(x, __int__$bool_(y));
     case value::INT:
-      return list::__mul__(x, y);
+      return __mul__$list$int_(x, y);
     }
   }
   throw std::runtime_error("invalid argument type for *");
@@ -206,31 +206,31 @@ value __truediv__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return float_::__truediv__(bool_::__float__(x), bool_::__float__(y));
+      return __truediv__$float_$float_(__float__$bool_(x), __float__$bool_(y));
     case value::INT:
-      return float_::__truediv__(bool_::__float__(x), int_::__float__(y));
+      return __truediv__$float_$float_(__float__$bool_(x), __float__$int_(y));
     case value::FLOAT:
-      return float_::__truediv__(bool_::__float__(x), y);
+      return __truediv__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__truediv__(int_::__float__(x), bool_::__int__(y));
+      return __truediv__$float_$float_(__float__$int_(x), __float__$bool_(y));
     case value::INT:
-      return float_::__truediv__(int_::__float__(x), int_::__float__(y));
+      return __truediv__$float_$float_(__float__$int_(x), __float__$int_(y));
     case value::FLOAT:
-      return float_::__truediv__(int_::__float__(x), y);
+      return __truediv__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__truediv__(x, bool_::__float__(y));
+      return __truediv__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__truediv__(x, int_::__float__(y));
+      return __truediv__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__truediv__(x, y);
+      return __truediv__$float_$float_(x, y);
     }
   }
   throw std::runtime_error("invalid argument type for /");
@@ -241,31 +241,31 @@ value __mod__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__mod__(bool_::__int__(x), bool_::__int__(y));
+      return __mod__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__mod__(bool_::__int__(x), y);
+      return __mod__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__mod__(bool_::__float__(x), y);
+      return __mod__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__mod__(x, bool_::__int__(y));
+      return __mod__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__mod__(x, y);
+      return __mod__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__mod__(int_::__float__(x), y);
+      return __mod__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__mod__(x, bool_::__float__(y));
+      return __mod__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__mod__(x, int_::__float__(y));
+      return __mod__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__mod__(x, y);
+      return __mod__$float_$float_(x, y);
     }
   }
   throw std::runtime_error("invalid argument type for mod");
@@ -274,13 +274,13 @@ value __mod__(value x, value y) {
 value __len__(value self) {
   switch (self.type) {
   case value::LIST:
-    return list::__len__(self);
+    return __len__$list(self);
   case value::STR:
-    return str::__len__(self);
+    return __len__$str(self);
   case value::SET:
-    return set::__len__(self);
+    return __len__$set(self);
   case value::DICT:
-    return dict::__len__(self);
+    return __len__$dict(self);
   default:
     throw std::runtime_error("invalid argument type for len");
   }
@@ -292,14 +292,14 @@ value __getitem__(value self, value k) {
     switch (k.type) {
     case value::INT:
     case value::SLICE:
-      return str::__getitem__(self, k);
+      return __getitem__$str$(self, k);
     }
     break;
   case value::LIST:
     switch (k.type) {
     case value::INT:
     case value::SLICE:
-      return list::__getitem__(self, k);
+      return __getitem__$list$(self, k);
     }
     break;
   case value::DICT:
@@ -309,7 +309,7 @@ value __getitem__(value self, value k) {
     case value::INT:
     case value::FLOAT:
     case value::STR:
-      return dict::__getitem__(self, k);
+      return __getitem__$dict$(self, k);
     }
   }
   throw std::runtime_error("invalid argument type for []");
@@ -319,12 +319,12 @@ value __contains__(value self, value v) {
   switch (self.type) {
   case value::STR:
     if (v.type == value::STR)
-      return str::__contains__(self, v);
+      return __contains__$str$str(self, v);
     break;
   case value::LIST:
-    return list::__contains__(self, v);
+    return __contains__$list$(self, v);
   case value::SET:
-    return set::__contains__(self, v);
+    return __contains__$set$(self, v);
   case value::DICT:
     switch (v.type) {
     case value::NONE:
@@ -332,7 +332,7 @@ value __contains__(value self, value v) {
     case value::INT:
     case value::FLOAT:
     case value::STR:
-      return dict::__contains__(self, v);
+      return __contains__$dict$(self, v);
     }
   }
   throw std::runtime_error("invalid argument type for in");
@@ -344,7 +344,7 @@ value __setitem__(value self, value k, value v) {
     switch (k.type) {
     case value::INT:
     case value::SLICE:
-      return list::__setitem__(self, k, v);
+      return __setitem__$list$$(self, k, v);
     }
     break;
   case value::DICT:
@@ -354,7 +354,7 @@ value __setitem__(value self, value k, value v) {
     case value::INT:
     case value::FLOAT:
     case value::STR:
-      return dict::__setitem__(self, k, v);
+      return __setitem__$dict$$(self, k, v);
     }
   }
   throw std::runtime_error("invalid argument type for []=");
@@ -363,7 +363,13 @@ value __setitem__(value self, value k, value v) {
 value __delitem__(value self, value k) {
   switch (self.type) {
   case value::LIST:
-    return list::__delitem__(self, k);
+    switch (k.type) {
+      case value::INT:
+        return __delitem__$list$int_(self, k);
+      case value::SLICE:
+        return __delitem__$list$slice(self, k);
+    }
+    break;
   case value::DICT:
     switch (k.type) {
     case value::NONE:
@@ -371,7 +377,7 @@ value __delitem__(value self, value k) {
     case value::INT:
     case value::FLOAT:
     case value::STR:
-      return dict::__delitem__(self, k);
+      return __delitem__$dict$(self, k);
     }
   }
   throw std::runtime_error("invalid argument type for del");
@@ -380,21 +386,21 @@ value __delitem__(value self, value k) {
 value __bool__(value self) {
   switch (self.type) {
   case value::NONE:
-    return none::__bool__(self);
+    return __bool__$none(self);
   case value::BOOL:
-    return bool_::__bool__(self);
+    return __bool__$bool_(self);
   case value::INT:
-    return int_::__bool__(self);
+    return __bool__$int_(self);
   case value::FLOAT:
-    return float_::__bool__(self);
+    return __bool__$float_(self);
   case value::STR:
-    return str::__bool__(self);
+    return __bool__$str(self);
   case value::LIST:
-    return list::__bool__(self);
+    return __bool__$list(self);
   case value::SET:
-    return set::__bool__(self);
+    return __bool__$set(self);
   case value::DICT:
-    return dict::__bool__(self);
+    return __bool__$dict(self);
   }
   throw std::runtime_error("invalid argument type for bool()");
 }
@@ -403,112 +409,112 @@ value __eq__(value x, value y) {
   switch (x.type) {
   case value::NONE:
     if (y.type == value::NONE)
-      return none::__eq__(x, y);
+      return __eq__$none$none(x, y);
     break;
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__eq__(x, y);
+      return __eq__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__eq__(bool_::__int__(x), y);
+      return __eq__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__eq__(bool_::__float__(x), y);
+      return __eq__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__eq__(x, bool_::__int__(y));
+      return __eq__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__eq__(x, y);
+      return __eq__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__eq__(int_::__float__(x), y);
+      return __eq__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__eq__(x, bool_::__float__(y));
+      return __eq__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__eq__(x, int_::__float__(y));
+      return __eq__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__eq__(x, y);
+      return __eq__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__eq__(x, y);
+      return __eq__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__eq__(x, y);
+      return __eq__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__eq__(x, y);
+      return __eq__$set$set(x, y);
     break;
   case value::DICT:
     if (y.type == value::DICT)
-      return dict::__eq__(x, y);
+      return __eq__$dict$dict(x, y);
     break;
   }
-  return bool_::make(false);
+  return make$bool_(false);
 }
 
 value __ne__(value x, value y) {
   switch (x.type) {
   case value::NONE:
     if (y.type == value::NONE)
-      return none::__ne__(x, y);
+      return __ne__$none$none(x, y);
     break;
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__ne__(x, y);
+      return __ne__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__ne__(bool_::__int__(x), y);
+      return __ne__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__ne__(bool_::__float__(x), y);
+      return __ne__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__ne__(x, bool_::__int__(y));
+      return __ne__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__ne__(x, y);
+      return __ne__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__ne__(int_::__float__(x), y);
+      return __ne__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__ne__(x, bool_::__float__(y));
+      return __ne__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__ne__(x, int_::__float__(y));
+      return __ne__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__ne__(x, y);
+      return __ne__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__ne__(x, y);
+      return __ne__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__ne__(x, y);
+      return __ne__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__ne__(x, y);
+      return __ne__$set$set(x, y);
     break;
   case value::DICT:
     if (y.type == value::DICT)
-      return dict::__ne__(x, y);
+      return __ne__$dict$dict(x, y);
     break;
   }
-  return bool_::make(true);
+  return make$bool_(true);
 }
 
 value __lt__(value x, value y) {
@@ -516,44 +522,44 @@ value __lt__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__lt__(x, y);
+      return __lt__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__lt__(bool_::__int__(x), y);
+      return __lt__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__lt__(bool_::__float__(x), y);
+      return __lt__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__lt__(x, bool_::__int__(y));
+      return __lt__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__lt__(x, y);
+      return __lt__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__lt__(int_::__float__(x), y);
+      return __lt__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__lt__(x, bool_::__float__(y));
+      return __lt__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__lt__(x, int_::__float__(y));
+      return __lt__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__lt__(x, y);
+      return __lt__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__lt__(x, y);
+      return __lt__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__lt__(x, y);
+      return __lt__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__lt__(x, y);
+      return __lt__$set$set(x, y);
     break;
   }
   throw std::runtime_error("invalid type for <");
@@ -564,44 +570,44 @@ value __le__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__le__(x, y);
+      return __le__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__le__(bool_::__int__(x), y);
+      return __le__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__le__(bool_::__float__(x), y);
+      return __le__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__le__(x, bool_::__int__(y));
+      return __le__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__le__(x, y);
+      return __le__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__le__(int_::__float__(x), y);
+      return __le__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__le__(x, bool_::__float__(y));
+      return __le__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__le__(x, int_::__float__(y));
+      return __le__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__le__(x, y);
+      return __le__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__le__(x, y);
+      return __le__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__le__(x, y);
+      return __le__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__le__(x, y);
+      return __le__$set$set(x, y);
     break;
   }
   throw std::runtime_error("invalid type for <=");
@@ -612,44 +618,44 @@ value __ge__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__ge__(x, y);
+      return __ge__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__ge__(bool_::__int__(x), y);
+      return __ge__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__ge__(bool_::__float__(x), y);
+      return __ge__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__ge__(x, bool_::__int__(y));
+      return __ge__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__ge__(x, y);
+      return __ge__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__ge__(int_::__float__(x), y);
+      return __ge__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__ge__(x, bool_::__float__(y));
+      return __ge__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__ge__(x, int_::__float__(y));
+      return __ge__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__ge__(x, y);
+      return __ge__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__ge__(x, y);
+      return __ge__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__ge__(x, y);
+      return __ge__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__ge__(x, y);
+      return __ge__$set$set(x, y);
     break;
   }
   throw std::runtime_error("invalid type for >=");
@@ -660,44 +666,44 @@ value __gt__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__gt__(x, y);
+      return __gt__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__gt__(bool_::__int__(x), y);
+      return __gt__$int_$int_(__int__$bool_(x), y);
     case value::FLOAT:
-      return float_::__gt__(bool_::__float__(x), y);
+      return __gt__$float_$float_(__float__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__gt__(x, bool_::__int__(y));
+      return __gt__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__gt__(x, y);
+      return __gt__$int_$int_(x, y);
     case value::FLOAT:
-      return float_::__gt__(int_::__float__(x), y);
+      return __gt__$float_$float_(__float__$int_(x), y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return float_::__gt__(x, bool_::__float__(y));
+      return __gt__$float_$float_(x, __float__$bool_(y));
     case value::INT:
-      return float_::__gt__(x, int_::__float__(y));
+      return __gt__$float_$float_(x, __float__$int_(y));
     case value::FLOAT:
-      return float_::__gt__(x, y);
+      return __gt__$float_$float_(x, y);
     }
     break;
   case value::STR:
     if (y.type == value::STR)
-      return str::__gt__(x, y);
+      return __gt__$str$str(x, y);
     break;
   case value::LIST:
     if (y.type == value::LIST)
-      return list::__gt__(x, y);
+      return __gt__$list$list(x, y);
     break;
   case value::SET:
     if (y.type == value::SET)
-      return set::__gt__(x, y);
+      return __gt__$set$set(x, y);
     break;
   }
   throw std::runtime_error("invalid type for >");
@@ -708,17 +714,17 @@ value __and__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__and__(x, y);
+      return __and__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__and__(bool_::__int__(x), y);
+      return __and__$int_$int_(__int__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__and__(x, bool_::__int__(y));
+      return __and__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__and__(x, y);
+      return __and__$int_$int_(x, y);
     }
   }
   throw std::runtime_error("invalid type for &");
@@ -729,17 +735,17 @@ value __or__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__or__(x, y);
+      return __or__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__or__(bool_::__int__(x), y);
+      return __or__$int_$int_(__int__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__or__(x, bool_::__int__(y));
+      return __or__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__or__(x, y);
+      return __or__$int_$int_(x, y);
     }
   }
   throw std::runtime_error("invalid type for |");
@@ -750,17 +756,17 @@ value __xor__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return bool_::__xor__(x, y);
+      return __xor__$bool_$bool_(x, y);
     case value::INT:
-      return int_::__xor__(bool_::__int__(x), y);
+      return __xor__$int_$int_(__int__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__xor__(x, bool_::__int__(y));
+      return __xor__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__xor__(x, y);
+      return __xor__$int_$int_(x, y);
     }
   }
   throw std::runtime_error("invalid type for ^");
@@ -769,9 +775,9 @@ value __xor__(value x, value y) {
 value __invert__(value self) {
   switch (self.type) {
   case value::BOOL:
-    return int_::__invert__(bool_::__int__(self));
+    return __invert__$int_(__int__$bool_(self));
   case value::INT:
-    return int_::__invert__(self);
+    return __invert__$int_(self);
   default:
     throw std::runtime_error("invalid type for ~");
   }
@@ -782,17 +788,17 @@ value __lshift__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__lshift__(bool_::__int__(x), bool_::__int__(y));
+      return __lshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__lshift__(bool_::__int__(x), y);
+      return __lshift__$int_$int_(__int__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__lshift__(x, bool_::__int__(y));
+      return __lshift__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__lshift__(x, y);
+      return __lshift__$int_$int_(x, y);
     }
   }
   throw std::runtime_error("invalid type for <<");
@@ -803,17 +809,17 @@ value __rshift__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return int_::__rshift__(bool_::__int__(x), bool_::__int__(y));
+      return __rshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
     case value::INT:
-      return int_::__rshift__(bool_::__int__(x), y);
+      return __rshift__$int_$int_(__int__$bool_(x), y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return int_::__rshift__(x, bool_::__int__(y));
+      return __rshift__$int_$int_(x, __int__$bool_(y));
     case value::INT:
-      return int_::__rshift__(x, y);
+      return __rshift__$int_$int_(x, y);
     }
   }
   throw std::runtime_error("invalid type for >>");
@@ -821,42 +827,42 @@ value __rshift__(value x, value y) {
 
 value __iter__(value self) {
   if (self.type == value::RANGE) {
-    return range::__iter__(self);
+    return __iter__$range(self);
   }
   throw std::runtime_error("invalid type for __iter__");
 }
 
 value __next__(value self) {
   if (self.type == value::RANGE_ITERATOR) {
-    return range_iterator::__next__(self);
+    return __next__$range_iterator(self);
   }
   throw std::runtime_error("invalid type for __next__");
 }
 
 value append(value self, value v) {
   if (self.type == value::LIST) {
-    return list::append(self, v);
+    return append$list$(self, v);
   }
   throw std::runtime_error("invalid type for append");
 }
 
 value add(value self, value v) {
   if (self.type == value::SET) {
-    return set::add(self, v);
+    return add$set$(self, v);
   }
   throw std::runtime_error("invalid type for add");
 }
 
 value remove(value self, value v) {
   if (self.type == value::SET) {
-    return set::remove(self, v);
+    return remove$set$(self, v);
   }
   throw std::runtime_error("invalid type for remove");
 }
 
 value pop(value self) {
   if (self.type == value::LIST) {
-    return list::pop(self);
+    return pop$list(self);
   }
   throw std::runtime_error("invalid type for pop");
 }
