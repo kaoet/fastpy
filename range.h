@@ -3,6 +3,7 @@
 #include "type.h"
 #include "int.h"
 
-value __init__$range$int_(value stop);
-value __init__$range$int_$int_$int_(value start, value stop, value step = make$int_(1));
+value range$int_(value stop);
+value range$int_$int_(value start, value stop);
+value range$int_$int_$int_(value start, value stop, value step);
 value __iter__$range(value self);

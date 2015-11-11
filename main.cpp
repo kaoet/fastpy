@@ -78,7 +78,7 @@ void test_str() {
   assert(make$str("abc") < make$str("abcd"));
   assert(make$str("abd") >= make$str("abcd"));
   assert(__getitem__(make$str("0123456"),
-                     __init__$slice$int_$int_$int_(make$int_(1), make$int_(50),
+                     slice$int_$int_$int_(make$int_(1), make$int_(50),
                                      make$int_(2))) == make$str("135"));
 }
 
@@ -199,7 +199,7 @@ void test_list() {
   assert(__bool__(make$list()) == make$bool_(false));
   assert(__bool__(list1()) == make$bool_(true));
   assert(list1() <= list12());
-  assert(__getitem__(list1(), __init__$slice$int_$int_$int_(make$int_(10), make$int_(-10),
+  assert(__getitem__(list1(), slice$int_$int_$int_(make$int_(10), make$int_(-10),
                                               make$int_(-2))) ==
          list1_slice());
 
@@ -217,12 +217,12 @@ void test_list() {
 
   l = list3();
   __setitem__(l,
-              __init__$slice$int_$int_$int_(make$int_(3), make$int_(-50), make$int_(-2)),
+              slice$int_$int_$int_(make$int_(3), make$int_(-50), make$int_(-2)),
               list4());
   assert(l == list3_setslice1());
 
   l = list3();
-  __setitem__(l, __init__$slice$int_$int_$int_(make$int_(2), make$int_(3), make$int_(1)),
+  __setitem__(l, slice$int_$int_$int_(make$int_(2), make$int_(3), make$int_(1)),
               list4());
   assert(l == list3_setslice2());
   
@@ -319,14 +319,14 @@ void test_dict() {
 }
 
 void test_range() {
-  value r = __init__$range$int_(make$int_(3));
+  value r = range$int_(make$int_(3));
   value iter = __iter__(r);
   assert(__next__(iter) == make$int_(0));
   assert(__next__(iter) == make$int_(1));
   assert(__next__(iter) == make$int_(2));
   assert(__next__(iter) == make$none());
 
-  r = __init__$range$int_$int_$int_(make$int_(5), make$int_(1), make$int_(-2));
+  r = range$int_$int_$int_(make$int_(5), make$int_(1), make$int_(-2));
   iter = __iter__(r);
   assert(__next__(iter) == make$int_(5));
   assert(__next__(iter) == make$int_(3));
