@@ -63,6 +63,18 @@ value __add__$list$list(value x, value y) {
   ret.listval = merged;
   return ret;
 }
+value __mul__$list$bool_(value self, value n) {
+  assert(self.type == value::LIST && n.type == value::BOOL);
+  return __mul__$list$int_(self, __int__$bool_(n));
+}
+value __mul__$bool_$list(value n, value self) {
+  assert(self.type == value::LIST && n.type == value::BOOL);
+  return __mul__$int_$list(__int__$bool_(n), self);
+}
+value __mul__$int_$list(value n, value self) {
+  assert(self.type == value::LIST && n.type == value::INT);
+  return __mul__$list$int_(self, n);
+}
 
 value __mul__$list$int_(value self, value n) {
   assert(self.type == value::LIST && n.type == value::INT);

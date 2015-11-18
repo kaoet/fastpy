@@ -12,6 +12,7 @@
 #include "list_iterator.h"
 #include "set_iterator.h"
 #include "dict_iterator.h"
+#include "generated.h"
 
 value print(value v) {
   switch (v.type) {
@@ -70,29 +71,29 @@ value __add__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __add__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __add__$bool_$bool_(x, y);
     case value::INT:
-      return __add__$int_$int_(__int__$bool_(x), y);
+      return __add__$bool_$int_(x, y);
     case value::FLOAT:
-      return __add__$float_$float_(__float__$bool_(x), y);
+      return __add__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __add__$int_$int_(x, __int__$bool_(y));
+      return __add__$int_$bool_(x, y);
     case value::INT:
       return __add__$int_$int_(x, y);
     case value::FLOAT:
-      return __add__$float_$float_(__float__$int_(x), y);
+      return __add__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __add__$float_$float_(x, __float__$bool_(y));
+      return __add__$float_$bool_(x, y);
     case value::INT:
-      return __add__$float_$float_(x, __float__$int_(y));
+      return __add__$float_$int_(x, y);
     case value::FLOAT:
       return __add__$float_$float_(x, y);
     }
@@ -115,29 +116,29 @@ value __sub__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __sub__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __sub__$bool_$bool_(x, y);
     case value::INT:
-      return __sub__$int_$int_(__int__$bool_(x), y);
+      return __sub__$bool_$int_(x, y);
     case value::FLOAT:
-      return __sub__$float_$float_(__float__$bool_(x), y);
+      return __sub__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __sub__$int_$int_(x, __int__$bool_(y));
+      return __sub__$int_$bool_(x, y);
     case value::INT:
       return __sub__$int_$int_(x, y);
     case value::FLOAT:
-      return __sub__$float_$float_(__float__$int_(x), y);
+      return __sub__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __sub__$float_$float_(x, __float__$bool_(y));
+      return __sub__$float_$bool_(x, y);
     case value::INT:
-      return __sub__$float_$float_(x, __float__$int_(y));
+      return __sub__$float_$int_(x, y);
     case value::FLOAT:
       return __sub__$float_$float_(x, y);
     }
@@ -150,37 +151,37 @@ value __mul__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __mul__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __mul__$bool_$bool_(x, y);
     case value::INT:
-      return __mul__$int_$int_(__int__$bool_(x), y);
+      return __mul__$bool_$int_(x, y);
     case value::FLOAT:
-      return __mul__$float_$float_(__float__$bool_(x), y);
+      return __mul__$bool_$float_(x, y);
     case value::STR:
-      return __mul__$str$int_(y, __int__$bool_(x));
+      return __mul__$bool_$str(x, y);
     case value::LIST:
-      return __mul__$list$int_(y, __int__$bool_(x));
+      return __mul__$bool_$list(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __mul__$int_$int_(x, __int__$bool_(y));
+      return __mul__$int_$bool_(x, y);
     case value::INT:
       return __mul__$int_$int_(x, y);
     case value::FLOAT:
-      return __mul__$float_$float_(__float__$int_(x), y);
+      return __mul__$int_$float_(x, y);
     case value::STR:
-      return __mul__$str$int_(y, x);
+      return __mul__$int_$str(x, y);
     case value::LIST:
-      return __mul__$list$int_(y, x);
+      return __mul__$int_$list(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __mul__$float_$float_(x, __float__$bool_(y));
+      return __mul__$float_$bool_(x, y);
     case value::INT:
-      return __mul__$float_$float_(x, __float__$int_(y));
+      return __mul__$float_$int_(x, y);
     case value::FLOAT:
       return __mul__$float_$float_(x, y);
     }
@@ -188,7 +189,7 @@ value __mul__(value x, value y) {
   case value::STR:
     switch (y.type) {
     case value::BOOL:
-      return __mul__$str$int_(x, __int__$bool_(y));
+      return __mul__$str$bool_(x, y);
     case value::INT:
       return __mul__$str$int_(x, y);
     }
@@ -196,7 +197,7 @@ value __mul__(value x, value y) {
   case value::LIST:
     switch (y.type) {
     case value::BOOL:
-      return __mul__$list$int_(x, __int__$bool_(y));
+      return __mul__$list$bool_(x, y);
     case value::INT:
       return __mul__$list$int_(x, y);
     }
@@ -209,29 +210,29 @@ value __truediv__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __truediv__$float_$float_(__float__$bool_(x), __float__$bool_(y));
+      return __truediv__$bool_$bool_(x, y);
     case value::INT:
-      return __truediv__$float_$float_(__float__$bool_(x), __float__$int_(y));
+      return __truediv__$bool_$int_(x, y);
     case value::FLOAT:
-      return __truediv__$float_$float_(__float__$bool_(x), y);
+      return __truediv__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __truediv__$float_$float_(__float__$int_(x), __float__$bool_(y));
+      return __truediv__$int_$bool_(x, y);
     case value::INT:
-      return __truediv__$float_$float_(__float__$int_(x), __float__$int_(y));
+      return __truediv__$int_$int_(x, y);
     case value::FLOAT:
-      return __truediv__$float_$float_(__float__$int_(x), y);
+      return __truediv__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __truediv__$float_$float_(x, __float__$bool_(y));
+      return __truediv__$float_$bool_(x, y);
     case value::INT:
-      return __truediv__$float_$float_(x, __float__$int_(y));
+      return __truediv__$float_$int_(x, y);
     case value::FLOAT:
       return __truediv__$float_$float_(x, y);
     }
@@ -244,29 +245,29 @@ value __mod__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __mod__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __mod__$bool_$bool_(x, y);
     case value::INT:
-      return __mod__$int_$int_(__int__$bool_(x), y);
+      return __mod__$bool_$int_(x, y);
     case value::FLOAT:
-      return __mod__$float_$float_(__float__$bool_(x), y);
+      return __mod__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __mod__$int_$int_(x, __int__$bool_(y));
+      return __mod__$int_$bool_(x, y);
     case value::INT:
       return __mod__$int_$int_(x, y);
     case value::FLOAT:
-      return __mod__$float_$float_(__float__$int_(x), y);
+      return __mod__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __mod__$float_$float_(x, __float__$bool_(y));
+      return __mod__$float_$bool_(x, y);
     case value::INT:
-      return __mod__$float_$float_(x, __float__$int_(y));
+      return __mod__$float_$int_(x, y);
     case value::FLOAT:
       return __mod__$float_$float_(x, y);
     }
@@ -294,15 +295,17 @@ value __getitem__(value self, value k) {
   case value::STR:
     switch (k.type) {
     case value::INT:
+      return __getitem__$str$int_(self, k);
     case value::SLICE:
-      return __getitem__$str$(self, k);
+      return __getitem__$str$slice(self, k);
     }
     break;
   case value::LIST:
     switch (k.type) {
     case value::INT:
+      return __getitem__$list$int_(self, k);
     case value::SLICE:
-      return __getitem__$list$(self, k);
+      return __getitem__$list$slice(self, k);
     }
     break;
   case value::DICT:
@@ -346,8 +349,9 @@ value __setitem__(value self, value k, value v) {
   case value::LIST:
     switch (k.type) {
     case value::INT:
+      return __setitem__$list$int_$(self, k, v);
     case value::SLICE:
-      return __setitem__$list$$(self, k, v);
+      return __setitem__$list$slice$(self, k, v);
     }
     break;
   case value::DICT:
@@ -419,27 +423,27 @@ value __eq__(value x, value y) {
     case value::BOOL:
       return __eq__$bool_$bool_(x, y);
     case value::INT:
-      return __eq__$int_$int_(__int__$bool_(x), y);
+      return __eq__$bool_$int_(x, y);
     case value::FLOAT:
-      return __eq__$float_$float_(__float__$bool_(x), y);
+      return __eq__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __eq__$int_$int_(x, __int__$bool_(y));
+      return __eq__$int_$bool_(x, y);
     case value::INT:
       return __eq__$int_$int_(x, y);
     case value::FLOAT:
-      return __eq__$float_$float_(__float__$int_(x), y);
+      return __eq__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __eq__$float_$float_(x, __float__$bool_(y));
+      return __eq__$float_$bool_(x, y);
     case value::INT:
-      return __eq__$float_$float_(x, __float__$int_(y));
+      return __eq__$float_$int_(x, y);
     case value::FLOAT:
       return __eq__$float_$float_(x, y);
     }
@@ -475,27 +479,27 @@ value __ne__(value x, value y) {
     case value::BOOL:
       return __ne__$bool_$bool_(x, y);
     case value::INT:
-      return __ne__$int_$int_(__int__$bool_(x), y);
+      return __ne__$bool_$int_(x, y);
     case value::FLOAT:
-      return __ne__$float_$float_(__float__$bool_(x), y);
+      return __ne__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __ne__$int_$int_(x, __int__$bool_(y));
+      return __ne__$int_$bool_(x, y);
     case value::INT:
       return __ne__$int_$int_(x, y);
     case value::FLOAT:
-      return __ne__$float_$float_(__float__$int_(x), y);
+      return __ne__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __ne__$float_$float_(x, __float__$bool_(y));
+      return __ne__$float_$bool_(x, y);
     case value::INT:
-      return __ne__$float_$float_(x, __float__$int_(y));
+      return __ne__$float_$int_(x, y);
     case value::FLOAT:
       return __ne__$float_$float_(x, y);
     }
@@ -527,27 +531,27 @@ value __lt__(value x, value y) {
     case value::BOOL:
       return __lt__$bool_$bool_(x, y);
     case value::INT:
-      return __lt__$int_$int_(__int__$bool_(x), y);
+      return __lt__$bool_$int_(x, y);
     case value::FLOAT:
-      return __lt__$float_$float_(__float__$bool_(x), y);
+      return __lt__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __lt__$int_$int_(x, __int__$bool_(y));
+      return __lt__$int_$bool_(x, y);
     case value::INT:
       return __lt__$int_$int_(x, y);
     case value::FLOAT:
-      return __lt__$float_$float_(__float__$int_(x), y);
+      return __lt__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __lt__$float_$float_(x, __float__$bool_(y));
+      return __lt__$float_$bool_(x, y);
     case value::INT:
-      return __lt__$float_$float_(x, __float__$int_(y));
+      return __lt__$float_$int_(x, y);
     case value::FLOAT:
       return __lt__$float_$float_(x, y);
     }
@@ -575,27 +579,27 @@ value __le__(value x, value y) {
     case value::BOOL:
       return __le__$bool_$bool_(x, y);
     case value::INT:
-      return __le__$int_$int_(__int__$bool_(x), y);
+      return __le__$bool_$int_(x, y);
     case value::FLOAT:
-      return __le__$float_$float_(__float__$bool_(x), y);
+      return __le__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __le__$int_$int_(x, __int__$bool_(y));
+      return __le__$int_$bool_(x, y);
     case value::INT:
       return __le__$int_$int_(x, y);
     case value::FLOAT:
-      return __le__$float_$float_(__float__$int_(x), y);
+      return __le__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __le__$float_$float_(x, __float__$bool_(y));
+      return __le__$float_$bool_(x, y);
     case value::INT:
-      return __le__$float_$float_(x, __float__$int_(y));
+      return __le__$float_$int_(x, y);
     case value::FLOAT:
       return __le__$float_$float_(x, y);
     }
@@ -623,27 +627,27 @@ value __ge__(value x, value y) {
     case value::BOOL:
       return __ge__$bool_$bool_(x, y);
     case value::INT:
-      return __ge__$int_$int_(__int__$bool_(x), y);
+      return __ge__$bool_$int_(x, y);
     case value::FLOAT:
-      return __ge__$float_$float_(__float__$bool_(x), y);
+      return __ge__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __ge__$int_$int_(x, __int__$bool_(y));
+      return __ge__$int_$bool_(x, y);
     case value::INT:
       return __ge__$int_$int_(x, y);
     case value::FLOAT:
-      return __ge__$float_$float_(__float__$int_(x), y);
+      return __ge__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __ge__$float_$float_(x, __float__$bool_(y));
+      return __ge__$float_$bool_(x, y);
     case value::INT:
-      return __ge__$float_$float_(x, __float__$int_(y));
+      return __ge__$float_$int_(x, y);
     case value::FLOAT:
       return __ge__$float_$float_(x, y);
     }
@@ -671,27 +675,27 @@ value __gt__(value x, value y) {
     case value::BOOL:
       return __gt__$bool_$bool_(x, y);
     case value::INT:
-      return __gt__$int_$int_(__int__$bool_(x), y);
+      return __gt__$bool_$int_(x, y);
     case value::FLOAT:
-      return __gt__$float_$float_(__float__$bool_(x), y);
+      return __gt__$bool_$float_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __gt__$int_$int_(x, __int__$bool_(y));
+      return __gt__$int_$bool_(x, y);
     case value::INT:
       return __gt__$int_$int_(x, y);
     case value::FLOAT:
-      return __gt__$float_$float_(__float__$int_(x), y);
+      return __gt__$int_$float_(x, y);
     }
     break;
   case value::FLOAT:
     switch (y.type) {
     case value::BOOL:
-      return __gt__$float_$float_(x, __float__$bool_(y));
+      return __gt__$float_$bool_(x, y);
     case value::INT:
-      return __gt__$float_$float_(x, __float__$int_(y));
+      return __gt__$float_$int_(x, y);
     case value::FLOAT:
       return __gt__$float_$float_(x, y);
     }
@@ -719,13 +723,13 @@ value __and__(value x, value y) {
     case value::BOOL:
       return __and__$bool_$bool_(x, y);
     case value::INT:
-      return __and__$int_$int_(__int__$bool_(x), y);
+      return __and__$bool_$int_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __and__$int_$int_(x, __int__$bool_(y));
+      return __and__$int_$bool_(x, y);
     case value::INT:
       return __and__$int_$int_(x, y);
     }
@@ -740,13 +744,13 @@ value __or__(value x, value y) {
     case value::BOOL:
       return __or__$bool_$bool_(x, y);
     case value::INT:
-      return __or__$int_$int_(__int__$bool_(x), y);
+      return __or__$bool_$int_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __or__$int_$int_(x, __int__$bool_(y));
+      return __or__$int_$bool_(x, y);
     case value::INT:
       return __or__$int_$int_(x, y);
     }
@@ -761,13 +765,13 @@ value __xor__(value x, value y) {
     case value::BOOL:
       return __xor__$bool_$bool_(x, y);
     case value::INT:
-      return __xor__$int_$int_(__int__$bool_(x), y);
+      return __xor__$bool_$int_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __xor__$int_$int_(x, __int__$bool_(y));
+      return __xor__$int_$bool_(x, y);
     case value::INT:
       return __xor__$int_$int_(x, y);
     }
@@ -778,7 +782,7 @@ value __xor__(value x, value y) {
 value __invert__(value self) {
   switch (self.type) {
   case value::BOOL:
-    return __invert__$int_(__int__$bool_(self));
+    return __invert__$bool_(self);
   case value::INT:
     return __invert__$int_(self);
   default:
@@ -791,15 +795,15 @@ value __lshift__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __lshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __lshift__$bool_$bool_(x, y);
     case value::INT:
-      return __lshift__$int_$int_(__int__$bool_(x), y);
+      return __lshift__$bool_$int_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __lshift__$int_$int_(x, __int__$bool_(y));
+      return __lshift__$int_$bool_(x, y);
     case value::INT:
       return __lshift__$int_$int_(x, y);
     }
@@ -812,15 +816,15 @@ value __rshift__(value x, value y) {
   case value::BOOL:
     switch (y.type) {
     case value::BOOL:
-      return __rshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+      return __rshift__$bool_$bool_(x, y);
     case value::INT:
-      return __rshift__$int_$int_(__int__$bool_(x), y);
+      return __rshift__$bool_$int_(x, y);
     }
     break;
   case value::INT:
     switch (y.type) {
     case value::BOOL:
-      return __rshift__$int_$int_(x, __int__$bool_(y));
+      return __rshift__$int_$bool_(x, y);
     case value::INT:
       return __rshift__$int_$int_(x, y);
     }

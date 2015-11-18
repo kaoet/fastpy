@@ -20,6 +20,11 @@ value __sub__$int_$int_(value x, value y) {
     return make$int_(x.intval - y.intval);
 }
 
+value __truediv__$int_$int_(value x, value y) {
+    assert(x.type == value::INT && y.type == value::INT);
+    return __truediv__$float_$float_(__float__$int_(x), __float__$int_(y));
+}
+
 value __mul__$int_$int_(value x, value y) {
     assert(x.type == value::INT && y.type == value::INT);
     return make$int_(x.intval * y.intval);

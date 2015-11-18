@@ -73,6 +73,21 @@ value __add__$str$str(value x, value y) {
   return ret;
 }
 
+
+value __mul__$str$bool_(value self, value n) {
+  assert(self.type == value::STR && n.type == value::BOOL);
+  return __mul__$str$int_(self, __int__$bool_(n));
+}
+value __mul__$bool_$str(value n, value self) {
+  assert(self.type == value::STR && n.type == value::BOOL);
+  return __mul__$int_$str(__int__$bool_(n), self);
+}
+
+value __mul__$int_$str(value n, value self) {
+  assert(self.type == value::STR && n.type == value::INT);
+  return __mul__$str$int_(self, n);
+}
+
 value __mul__$str$int_(value self, value n) {
   assert(self.type == value::STR && n.type == value::INT);
 

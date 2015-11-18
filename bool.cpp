@@ -2,6 +2,8 @@
 #include "int.h"
 #include "float.h"
 #include "assert.h"
+#include "str.h"
+#include "list.h"
 
 value make$bool_(bool v) {
   value ret;
@@ -38,6 +40,47 @@ value __ge__$bool_$bool_(value x, value y) {
 value __gt__$bool_$bool_(value x, value y) {
   assert(x.type == value::BOOL && y.type == value::BOOL);
   return make$bool_(x.boolval > y.boolval);
+}
+
+value __add__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __add__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+
+
+value __truediv__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __truediv__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+
+
+value __sub__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __sub__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+
+
+value __mul__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __mul__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+
+value __mod__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __mod__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+value __lshift__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __lshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+value __rshift__$bool_$bool_(value x, value y) {
+  assert(x.type == value::BOOL && y.type == value::BOOL);
+  return __rshift__$int_$int_(__int__$bool_(x), __int__$bool_(y));
+}
+
+value __invert__$bool_(value x) {
+  assert(x.type == value::BOOL);
+  return __invert__$int_(__int__$bool_(x));
 }
 
 value __bool__$bool_(value self) {
