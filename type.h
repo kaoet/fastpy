@@ -18,8 +18,15 @@ typedef struct { list_t *list; size_t index; } list_iterator_t;
 struct set_iterator_t;
 struct dict_iterator_t;
 
+struct base_value {
+    mutable size_t hash;
+    base_value(): hash(0) {
+
+    }
+};
+
 struct value {
-    enum { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE, LIST_ITERATOR, SET_ITERATOR, DICT_ITERATOR } type;
+    mutable size_t hash;
     union {
         bool boolval;
         long intval;
@@ -34,7 +41,12 @@ struct value {
         list_iterator_t *list_iteratorval;
         set_iterator_t *set_iteratorval;
         dict_iterator_t *dict_iteratorval;
+        void* voidval;
     };
+    enum Type { NONE, BOOL, INT, FLOAT, STR, LIST, SET, DICT, RANGE, RANGE_ITERATOR, SLICE, LIST_ITERATOR, SET_ITERATOR, DICT_ITERATOR } type;
+    value(): hash(0) {
+
+    }
     
     bool operator ==(value other) const {
         return __eq__(*this, other).boolval;
@@ -112,20 +124,25 @@ struct value {
 namespace std {
     template<>
     struct hash<value> {
-        size_t operator ()(value v) const {
+        size_t operator ()(const value& v) const {
+            if (v.hash) {
+                return v.hash;
+            }
+            printf("do calc\n");
             switch (v.type) {
             case value::NONE:
-                return -9223372036577629359;
+                return v.hash = -9223372036577629359;
             case value::BOOL:
-                return std::hash<bool>()(v.boolval);
+                return v.hash = std::hash<bool>()(v.boolval);
             case value::INT:
-                return std::hash<long>()(v.intval);
+                return v.hash = std::hash<long>()(v.intval);
             case value::FLOAT:
                 if (v.floatval == (long)v.floatval)
-                    return std::hash<long>()((long)v.floatval);
-                return std::hash<double>()(v.floatval);
+                    return v.hash = std::hash<long>()((long)v.floatval);
+                return v.hash = std::hash<double>()(v.floatval);
             case value::STR:
-                return std::hash<str_t>()(*v.strval);
+                printf("%s\n", v.strval->c_str());
+                return v.hash = std::hash<str_t>()(*v.strval);
             default:
                 throw std::runtime_error("unhashable type");
             }

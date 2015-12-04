@@ -181,7 +181,10 @@ value __getitem__$list$slice(value self, value k) {
       }
     }
 
-    return value{.type = value::LIST, .listval = ret};
+    value val;
+    val.type = value::LIST;
+    val.listval = ret;
+    return val;
 }
 
 value __setitem__$list$int_$(value self, value k, value v) {

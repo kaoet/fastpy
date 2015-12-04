@@ -23,8 +23,10 @@ value __getitem__$str$(value self, value k) {
 }
 
 value __getitem__$str$int_(value self, value k) {
-  return value{.type = value::STR,
-                 .strval = new str_t(1, self.strval->at(k.intval))};
+  value val;
+  val.type = value::STR;
+  val.strval = new str_t(1, self.strval->at(k.intval));
+  return val;
 }
 
 value __getitem__$str$slice(value self, value k) {
@@ -51,7 +53,10 @@ value __getitem__$str$slice(value self, value k) {
     }
   }
 
-  return value{.type = value::STR, .strval = ret};
+  value val;
+  val.type = value::STR;
+  val.strval = ret;
+  return val;
 }
 
 value __len__$str(value self) {

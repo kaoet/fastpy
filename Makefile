@@ -12,7 +12,7 @@ release: CXXFLAGS += -Ofast -march=native -flto -DNDEBUG
 release: $(OBJS) main.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-test: CXXFLAGS += -Ofast -march=native -flto -DNDEBUG
+test: CXXFLAGS +=  -march=native  -DNDEBUG
 test: $(OBJS) test.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 .PHONY: clean
